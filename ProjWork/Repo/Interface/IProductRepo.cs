@@ -1,6 +1,6 @@
 ﻿using ProjWork.Model;
 
-namespace ProjWork.Interface
+namespace ProjWork.Repo.Interface
 {
     public interface IProductRepo
     {

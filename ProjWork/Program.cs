@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
 using ProjWork.Helper;
-using ProjWork.Interface;
 using ProjWork.Repo;
+using ProjWork.Repo.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
