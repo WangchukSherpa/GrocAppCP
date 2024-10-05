@@ -8,8 +8,10 @@ namespace ProjWork.Helper
             IQueryable<Product> products,
             string? sortBy,
             int? productTypeId,
-            int? productBrandId
+            int? productBrandId 
             ) {
+           
+            
             //Filter using product Brand
             if (productBrandId.HasValue)
                products = products.Where(p => p.ProductBrandId == productBrandId.Value);

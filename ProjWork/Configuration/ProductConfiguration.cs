@@ -22,7 +22,6 @@ namespace ProjWork.Configuration
             //product has one brand and one type
             //one product brand has many product
             //one product type has many product 
-
         }
     }
 }

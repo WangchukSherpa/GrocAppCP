@@ -27,15 +27,18 @@ namespace ProjWork.Controllers
 
         
         [HttpGet]
-        public  ActionResult<IReadOnlyList<Product>> GetProducts(
+        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(
             string? sortBy=null, 
             int? productTypeId=null,
-            int? productBrandId=null
+            int? productBrandId=null,
+            int skip=0,
+            int take=5
             )
         {
-            var products = _pRepo.GetProducts();// Await the task to get the result
+            var products = _pRepo.GetProducts();
             products = _productfilter.ApplySort(products,
             sortBy, productTypeId, productBrandId);
+            var paginatedProducts = await _pRepo.GetProductsAsync(skip,take);
             return Ok(products);
         }
 

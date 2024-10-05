@@ -10,6 +10,15 @@ namespace ProjWork.Repo
     public class ProductRepo : IProductRepo
     {
         private readonly ProductDbContext _context;
+
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get; private set; }
+
+        
+
         public ProductRepo(ProductDbContext context)
         {
             _context = context;
@@ -29,11 +38,13 @@ namespace ProjWork.Repo
                 .FirstOrDefaultAsync(p=>p.Id==id);
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
+        public async Task<IReadOnlyList<Product>> GetProductsAsync(int skip,int take)
         {
             return await _context.Products
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
         }
         public IQueryable<Product> GetProducts()
