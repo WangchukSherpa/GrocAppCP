@@ -11,18 +11,19 @@ namespace ProjWork.Repo
     {
         private readonly ProductDbContext _context;
 
-        public int Take { get; private set; }
-
-        public int Skip { get; private set; }
-
-        public bool IsPagingEnabled { get; private set; }
-
+       
         
 
         public ProductRepo(ProductDbContext context)
         {
             _context = context;
         }
+         public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get; private set; }
+
         //thread basic unit of utilize cpu
         //Task a single unit of work
         public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
