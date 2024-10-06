@@ -1,4 +1,4 @@
-﻿namespace ProjWork.Model
+﻿namespace ProjWork.Entities.Basket
 {
     public class CustomersBasket
     {

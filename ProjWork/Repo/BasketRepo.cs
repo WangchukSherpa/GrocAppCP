@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
-using ProjWork.Model;
+using ProjWork.Entities.Basket;
 using ProjWork.Repo.Interface;
 using System.Text.Json;
 

@@ -1,4 +1,4 @@
-﻿namespace ProjWork.Model
+﻿namespace ProjWork.Entities.Basket
 {
     public class BasketItem
     {
@@ -8,7 +8,7 @@
         public int Quantity { get; set; }
 
         public string PictureUrl { get; set; }
-        public  string Brand { get; set; }
+        public string Brand { get; set; }
 
         public string Type { get; set; }
         public string CustomersBasketId { get; set; }  // Foreign key to CustomersBasket

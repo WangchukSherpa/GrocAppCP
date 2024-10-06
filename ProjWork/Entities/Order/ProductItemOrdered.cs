@@ -1,6 +1,6 @@
-﻿namespace ProjWork.Model.Order
+﻿namespace ProjWork.Entities.Order
 {
-    public class ProductItemOrdered
+    public class ProductItemOrdered: BaseEntities
     {
         public ProductItemOrdered()
         {
@@ -13,7 +13,7 @@
             PictureUrl = pictureUrl;
         }
 
-        public int ProductId {  get; set; }
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string PictureUrl { get; set; }
 

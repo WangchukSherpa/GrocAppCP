@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-using ProjWork.Model;
+using ProjWork.Entities.Basket;
 using ProjWork.Repo.Interface;
 
 namespace ProjWork.Controllers

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
-using ProjWork.Model;
+using ProjWork.Entities;
 using ProjWork.Repo.Interface;
 
 namespace ProjWork.Repo

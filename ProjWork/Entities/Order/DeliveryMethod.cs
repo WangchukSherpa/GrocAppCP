@@ -1,8 +1,8 @@
-﻿namespace ProjWork.Model.Order
+﻿namespace ProjWork.Entities.Order
 {
-    public class DeliveryMethod:BaseEntities
+    public class DeliveryMethod : BaseEntities
     {
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public string DeliveryTime { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

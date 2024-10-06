@@ -1,6 +1,6 @@
-﻿namespace ProjWork.Model.Order
+﻿namespace ProjWork.Entities.Order
 {
-    public class OrderItem:BaseEntities
+    public class OrderItem : BaseEntities
     {
         public OrderItem()
         {

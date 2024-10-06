@@ -1,14 +1,14 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ProjWork.Model.Order
+namespace ProjWork.Entities.Order
 {
     public enum OrderStatus
     {
-        [EnumMember(Value ="Pending")]
+        [EnumMember(Value = "Pending")]
         Pending,
         [EnumMember(Value = "Payment Recieved")]
         PaymentRecieved,
         [EnumMember(Value = "Payment Failed")]
-        PaymentFailed  
+        PaymentFailed
     }
 }

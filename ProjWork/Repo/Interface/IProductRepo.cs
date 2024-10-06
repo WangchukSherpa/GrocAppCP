@@ -1,4 +1,4 @@
-﻿using ProjWork.Model;
+﻿using ProjWork.Entities;
 
 namespace ProjWork.Repo.Interface
 {

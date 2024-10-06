@@ -1,12 +1,12 @@
-﻿namespace ProjWork.Model.Order
+﻿namespace ProjWork.Entities.Order
 {
-    public class Address
+    public class Address:BaseEntities
     {
         public Address()
         {
         }
-        public Address(string flatHouseNo, 
-            string areaSector, string landMark, 
+        public Address(string flatHouseNo,
+            string areaSector, string landMark,
             int pincode, string city, string state)
         {
             FlatHouseNo = flatHouseNo;
@@ -18,10 +18,10 @@
         }
 
         public string FlatHouseNo { get; set; }
-        public string AreaSector {  get; set; }
+        public string AreaSector { get; set; }
         public string LandMark { get; set; }
         public int Pincode { get; set; }
-        public string City {  get; set; }
+        public string City { get; set; }
         public string State { get; set; }
     }
 }
