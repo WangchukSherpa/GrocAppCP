@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProjWork.Model;
+using ProjWork.Entities;
+using ProjWork.Entities.Basket;
+using ProjWork.Entities.Order;
 using System.Reflection;
 
 namespace ProjWork.Data
@@ -13,6 +15,10 @@ namespace ProjWork.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<CustomersBasket> CustomersBaskets { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderedItems { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         //when we create the migration this is the
         //method This model is responsible for creating that migration

@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjWork;
+using ProjWork.Entities;
 using ProjWork.Helper;
-using ProjWork.Model;
 using ProjWork.Repo.Interface;
 
 namespace ProjWork.Controllers
@@ -38,8 +38,8 @@ namespace ProjWork.Controllers
             var products = _pRepo.GetProducts();
             products = _productfilter.ApplySort(products,
             sortBy, productTypeId, productBrandId);
-            var paginatedProducts = await _pRepo.GetProductsAsync(skip,take);
-            return Ok(products);
+            var paginatedProducts = await products.Skip(skip).Take(take).ToListAsync();
+            return Ok(paginatedProducts);
         }
 
        
