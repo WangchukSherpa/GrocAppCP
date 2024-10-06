@@ -38,8 +38,8 @@ namespace ProjWork.Controllers
             var products = _pRepo.GetProducts();
             products = _productfilter.ApplySort(products,
             sortBy, productTypeId, productBrandId);
-            var paginatedProducts = await _pRepo.GetProductsAsync(skip,take);
-            return Ok(products);
+            var paginatedProducts = await products.Skip(skip).Take(take).ToListAsync();
+            return Ok(paginatedProducts);
         }
 
        

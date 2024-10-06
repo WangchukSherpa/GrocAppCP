@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjWork.Data;
 
@@ -11,9 +12,11 @@ using ProjWork.Data;
 namespace ProjWork.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241005140955_secMig")]
+    partial class secMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +38,10 @@ namespace ProjWork.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomersBasketId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PictureUrl")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -153,13 +154,9 @@ namespace ProjWork.Migrations
 
             modelBuilder.Entity("ProjWork.Model.BasketItem", b =>
                 {
-                    b.HasOne("ProjWork.Model.CustomersBasket", "CustomersBasket")
+                    b.HasOne("ProjWork.Model.CustomersBasket", null)
                         .WithMany("Items")
-                        .HasForeignKey("CustomersBasketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomersBasket");
+                        .HasForeignKey("CustomersBasketId");
                 });
 
             modelBuilder.Entity("ProjWork.Model.Product", b =>
