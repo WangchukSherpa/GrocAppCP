@@ -10,20 +10,12 @@ namespace ProjWork.Repo
     public class BasketRepo : IBasketRepo
     {
         private readonly ProductDbContext _context;
-        public BasketRepo(ProductDbContext context) {
-        _context = context;
+        public BasketRepo(ProductDbContext context)
+        {
+            _context = context;
         }
 
-        public async Task<bool> DeleteBasketAsync(string id)
-        {
-           var basket=await _context.CustomersBaskets.FirstOrDefaultAsync(b => b.Id == id);
-            if (basket == null) {
-                return false;
-            }
-            _context.CustomersBaskets.Remove(basket);
-            await _context.SaveChangesAsync();
-            return true;
-        }
+
 
         public async Task<bool> DeleteItemBasketAsync(int id)
         {
@@ -45,30 +37,55 @@ namespace ProjWork.Repo
 
         public async Task<CustomersBasket> GetBasketAsync(string basketId)
         {
-         return await _context.CustomersBaskets
-                .Include(b=>b.Items)
-                .FirstOrDefaultAsync(b => b.Id == basketId);
+            return await _context.CustomersBaskets
+                   .Include(b => b.Items)
+                   .FirstOrDefaultAsync(b => b.Id == basketId);
         }
 
-      public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
+        public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
         {
+            // Fetch the existing basket from the database
             var existingBasket = await _context.CustomersBaskets
-            .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+                .Include(b => b.Items) // Include the related items
+                .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+
             if (existingBasket == null)
             {
+                // If the basket doesn't exist, create a new one
                 _context.CustomersBaskets.Add(customersBasket);
-       
             }
             else
             {
-             _context.Entry(existingBasket).CurrentValues.SetValues(customersBasket);
-               
+
+                foreach (var newItem in customersBasket.Items)
+                {
+                    var existingItem = existingBasket.Items
+                        .SingleOrDefault(i => i.ProductName == newItem.ProductName);
+
+                    if (existingItem == null)
+                    {
+
+                        existingBasket.Items.Add(newItem);
+                    }
+                    else
+                    {
+
+                        existingItem.Quantity += newItem.Quantity;
+                        existingItem.Price = newItem.Price;
+                        existingItem.PictureUrl = newItem.PictureUrl;
+                        existingItem.Brand = newItem.Brand;
+                        existingItem.Type = newItem.Type;
+                    }
+                }
             }
+
+            // Save changes to the database
             await _context.SaveChangesAsync();
 
-            
+            // Return the updated basket
             return await GetBasketAsync(customersBasket.Id);
         }
+
 
     }
 }
