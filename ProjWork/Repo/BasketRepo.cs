@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
-<<<<<<< HEAD
-using ProjWork.Model;
-=======
 using ProjWork.Entities.Basket;
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
+using ProjWork.Model;
 using ProjWork.Repo.Interface;
 using System.Text.Json;
 

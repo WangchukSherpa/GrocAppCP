@@ -12,9 +12,6 @@ namespace ProjWork.Configuration
             builder.HasMany(b => b.Items) // One CustomersBasket has many BasketItems
             .WithOne(i => i.CustomersBasket) // Each BasketItem has one CustomersBasket
             .HasForeignKey(i => i.CustomersBasketId) // Foreign key in BasketItem
-<<<<<<< HEAD
-            .OnDelete(DeleteBehavior.Cascade); // Optional: Define delete behavior
-=======
             .OnDelete(DeleteBehavior.Cascade); 
             //SQL=>Redis 
         }

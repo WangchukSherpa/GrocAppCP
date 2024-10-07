@@ -1,4 +1,6 @@
-﻿namespace ProjWork.Model.Order
+﻿using ProjWork.Entities;
+
+namespace ProjWork.Model.Order
 {
     public class Order:BaseEntities
     {

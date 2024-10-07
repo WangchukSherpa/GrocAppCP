@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using ProjWork.Entities.Basket;
+using System.Text.Json.Serialization;
 
 namespace ProjWork.Model
 {
