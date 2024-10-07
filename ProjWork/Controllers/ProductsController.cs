@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjWork;
+using ProjWork.Entities;
 using ProjWork.Helper;
-using ProjWork.Model;
 using ProjWork.Repo.Interface;
 
 namespace ProjWork.Controllers

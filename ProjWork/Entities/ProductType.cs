@@ -1,4 +1,4 @@
-﻿namespace ProjWork.Model
+﻿namespace ProjWork.Entities
 {
     public class ProductType : BaseEntities
     {

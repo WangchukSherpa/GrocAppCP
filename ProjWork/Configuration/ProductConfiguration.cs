@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProjWork.Model;
+using ProjWork.Entities;
 
 namespace ProjWork.Configuration
 {
