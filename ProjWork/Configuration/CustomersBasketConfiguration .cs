@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-<<<<<<< HEAD
-using ProjWork.Model;
-=======
 using ProjWork.Entities.Basket;
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
 
 namespace ProjWork.Configuration
 {
@@ -20,7 +16,7 @@ namespace ProjWork.Configuration
             .OnDelete(DeleteBehavior.Cascade); // Optional: Define delete behavior
 =======
             .OnDelete(DeleteBehavior.Cascade); 
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
+            //SQL=>Redis 
         }
     }
 }

@@ -14,12 +14,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 options.JsonSerializerOptions.PropertyNamingPolicy = null;
 options.JsonSerializerOptions.DictionaryKeyPolicy = null;
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        // This option helps with handling circular references during serialization
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
+builder.Services.AddControllers();
 
 <<<<<<< HEAD
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjWork.Data;
 
@@ -11,9 +12,11 @@ using ProjWork.Data;
 namespace ProjWork.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241006191026_UserAdded")]
+    partial class UserAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,11 +25,7 @@ namespace ProjWork.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD
-            modelBuilder.Entity("ProjWork.Model.BasketItem", b =>
-=======
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,11 +66,7 @@ namespace ProjWork.Migrations
                     b.ToTable("BasketItem");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("ProjWork.Model.CustomersBasket", b =>
-=======
             modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -81,9 +76,6 @@ namespace ProjWork.Migrations
                     b.ToTable("CustomersBaskets");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("ProjWork.Model.Product", b =>
-=======
             modelBuilder.Entity("ProjWork.Entities.Order.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -238,7 +230,6 @@ namespace ProjWork.Migrations
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Product", b =>
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -352,7 +343,6 @@ namespace ProjWork.Migrations
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
                 {
                     b.HasOne("ProjWork.Entities.Basket.CustomersBasket", "CustomersBasket")
                         .WithMany("Items")
@@ -416,12 +406,6 @@ namespace ProjWork.Migrations
                     b.Navigation("ProductType");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("ProjWork.Model.CustomersBasket", b =>
-                {
-                    b.Navigation("Items");
-                });
-=======
             modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
                 {
                     b.Navigation("Items");
@@ -431,7 +415,6 @@ namespace ProjWork.Migrations
                 {
                     b.Navigation("OrderedItems");
                 });
->>>>>>> a39f4f9b259a1733d0a9c5e04c29cdfa27f7a4aa
 #pragma warning restore 612, 618
         }
     }
