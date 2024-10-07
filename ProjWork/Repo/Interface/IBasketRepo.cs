@@ -1,4 +1,4 @@
-﻿using ProjWork.Model;
+﻿using ProjWork.Entities.Basket;
 
 namespace ProjWork.Repo.Interface
 {
@@ -6,6 +6,7 @@ namespace ProjWork.Repo.Interface
     {
         Task<CustomersBasket> GetBasketAsync(string basketId);
         Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket);
-        Task<bool> DeleteBasketAsync(string id);
+       
+        Task<bool> DeleteItemBasketAsync(int id);
     }
 }

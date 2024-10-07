@@ -1,4 +1,4 @@
-﻿using ProjWork.Model;
+﻿using ProjWork.Entities;
 
 namespace ProjWork.Repo.Interface
 {
@@ -13,6 +13,6 @@ namespace ProjWork.Repo.Interface
         public IQueryable<Product> GetProducts();
         int Take { get; }
         int Skip { get; }
-        bool IsPagingEnabled { get; }
+     
     }
 }

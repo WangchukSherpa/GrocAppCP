@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjWork.Data;
 
@@ -11,9 +12,11 @@ using ProjWork.Data;
 namespace ProjWork.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241006175141_OrdUpdDELUP")]
+    partial class OrdUpdDELUP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,8 +39,7 @@ namespace ProjWork.Migrations
 
                     b.Property<string>("CustomersBasketId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasAnnotation("Relational:JsonPropertyName", "customersBasketId");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
@@ -61,17 +63,13 @@ namespace ProjWork.Migrations
 
                     b.HasIndex("CustomersBasketId");
 
-                    b.ToTable("BasketItems");
+                    b.ToTable("BasketItem");
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("LastModified")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -307,41 +305,6 @@ namespace ProjWork.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-                });
-
-            modelBuilder.Entity("ProjWork.Entities.User.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PhoneNum")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
