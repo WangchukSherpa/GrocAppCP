@@ -25,6 +25,24 @@ namespace ProjWork.Repo
             return true;
         }
 
+        public async Task<bool> DeleteItemBasketAsync(int id)
+        {
+            var basketItem = await _context.BasketItems.SingleOrDefaultAsync(b => b.Id == id);
+
+            if (basketItem == null)
+            {
+                return false;
+            }
+
+            // Remove the item from the basket
+            _context.BasketItems.Remove(basketItem);
+
+            // Save changes
+            var result = await _context.SaveChangesAsync() > 0;
+            return result;
+
+        }
+
         public async Task<CustomersBasket> GetBasketAsync(string basketId)
         {
          return await _context.CustomersBaskets
@@ -35,20 +53,20 @@ namespace ProjWork.Repo
       public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
         {
             var existingBasket = await _context.CustomersBaskets
-            .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);//Check if the basket already exists
+            .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
             if (existingBasket == null)
             {
                 _context.CustomersBaskets.Add(customersBasket);
-                //adds basket if doesnot exist
+       
             }
             else
             {
              _context.Entry(existingBasket).CurrentValues.SetValues(customersBasket);
-                //updates in the same if exist
+               
             }
             await _context.SaveChangesAsync();
 
-            // Return the updated or created basket
+            
             return await GetBasketAsync(customersBasket.Id);
         }
 

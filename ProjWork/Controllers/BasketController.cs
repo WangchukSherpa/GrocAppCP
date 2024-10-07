@@ -26,11 +26,17 @@ namespace ProjWork.Controllers
             var updateBasket= await _basketRepo.UpdateBasketAsync(basket);
             return Ok(updateBasket);
         }
-        [HttpDelete]
+       /* [HttpDelete]
         public async Task DeleteBasketAsync(string Id) { 
           await _basketRepo.DeleteBasketAsync(Id);
           
+        }*/
+        [HttpDelete]
+        public async Task DeleteItemBasketAsync(int Id)
+        {
+            await _basketRepo.DeleteItemBasketAsync(Id);
+
         }
-        
+
     }
 }
