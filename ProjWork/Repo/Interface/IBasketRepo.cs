@@ -6,6 +6,7 @@ namespace ProjWork.Repo.Interface
     {
         Task<CustomersBasket> GetBasketAsync(string basketId);
         Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket);
-        Task<bool> DeleteBasketAsync(string id);
+       
+        Task<bool> DeleteItemBasketAsync(int id);
     }
 }

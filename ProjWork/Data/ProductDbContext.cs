@@ -22,6 +22,7 @@ namespace ProjWork.Data
         public DbSet<OrderItem> OrderedItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         //when we create the migration this is the
         //method This model is responsible for creating that migration

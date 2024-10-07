@@ -13,5 +13,5 @@ export interface IBasketItem {
     PictureUrl: string;  // URL of the product image
     Brand: string;  // Brand of the product
     Type: string;  // Type or category of the product
-    CustomersBasketId: string;  // Id of the associated customer's basket
+    customersBasketId: string;  // Id of the associated customer's basket
 }
