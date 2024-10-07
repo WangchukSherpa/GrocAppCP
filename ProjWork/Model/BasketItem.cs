@@ -1,4 +1,6 @@
-﻿namespace ProjWork.Model
+﻿using System.Text.Json.Serialization;
+
+namespace ProjWork.Model
 {
     public class BasketItem
     {
@@ -12,6 +14,8 @@
 
         public string Type { get; set; }
         public string CustomersBasketId { get; set; }  // Foreign key to CustomersBasket
+
+        [JsonIgnore]
         public CustomersBasket CustomersBasket { get; set; }
     }
 }

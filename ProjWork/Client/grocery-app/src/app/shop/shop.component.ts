@@ -31,18 +31,20 @@ export class ShopComponent implements OnInit {
     this.getTypes();
   }
 
-  getProducts(){
-    this.shopService.getProducts(this.brandIdSelected,this.typeIdSelected,this.sortSelected).subscribe(
+  totalProducts: number = 0; // New variable to keep track of total products
+
+  getProducts() {
+    this.shopService.getProducts(this.brandIdSelected, this.typeIdSelected, this.sortSelected).subscribe(
       (response) => {
-        console.log(response); // This will log the response in the console
-        this.products = response; // Assign the response directly to the products array
+        console.log('Products from API:', response);
+        this.products = response;
+        this.totalProducts = response.length; // Track total products
       },
       (error) => {
-        console.error(error); // Log any error
+        console.error(error);
       }
     );
   }
-
   getBrands(){
     this.shopService.getBrands().subscribe(
       (response) => {

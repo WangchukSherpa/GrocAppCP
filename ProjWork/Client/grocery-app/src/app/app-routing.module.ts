@@ -9,6 +9,7 @@ const routes: Routes = [
   {path:'',component:HomeComponent,data:{breadcrumb:'Home'}},
   {path:'shop',component:ShopComponent,data:{breadcrumb:'Shop'}},
   {path:'shop/:id',component:ProductDetailsComponent,data:{breadcrumb:{alias:'productDetails'}}},
+  {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule),data:{breadcrumb:'Basket'}},
   {path:'contact',component:ContactComponent,data:{breadcrumb:'Contact'}},
   {path:'**',redirectTo:'',pathMatch:'full'}
 ];

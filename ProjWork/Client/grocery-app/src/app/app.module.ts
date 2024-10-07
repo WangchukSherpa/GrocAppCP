@@ -9,10 +9,12 @@ import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
 import { ContactComponent } from './contact/contact.component';
 import { ContactModule } from './contact/contact.module';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    BasketComponent,
   ],
   imports: [
     BrowserModule,

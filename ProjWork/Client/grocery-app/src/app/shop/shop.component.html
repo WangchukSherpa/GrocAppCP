@@ -38,9 +38,10 @@
         </section>
         <section class="col-9">
             <div class="d-flex justify-content-between align-items-center pb-2">
-            <header>
-                <span>Showing <strong>{{products.length}}</strong>  of <strong>{{products.length}}</strong>  Results</span>
-            </header>
+                <header>
+                    <span>Showing <strong>{{products.length}}</strong> of <strong>{{totalProducts}}</strong> Results</span>
+                </header>
+                
             <div class="form-inline mt-2 ml-2">
                 <input   (keyup.enter)="onSearch()"  class="form-control mr-2" #searchTerm style="width: 300px" placeholder="Search" type="text">
                 <button class="btn btn-outline-primary mr-5 my-2" (click)="onSearch()">Search</button>
