@@ -1,1 +1,13 @@
-<p>basket works!</p>
+<div class="container">
+    <h2>Your Basket</h2>
+    <ul class="list-group">
+      <li *ngFor="let item of basket?.Items" class="list-group-item d-flex justify-content-between align-items-center">
+        <img [src]="item.PictureUrl" alt="{{item.ProductName}}" style="width: 50px; height: 50px;">
+        <span>{{item.ProductName}}</span>
+        <span>{{item.Price | currency:'INR':'symbol':'1.2-2'}}</span>
+        <span>{{item.Quantity}}</span>
+        <button (click)="removeItemFromBasket(item.Id)" class="btn btn-danger">Remove</button>
+      </li>
+    </ul>
+  </div>
+  
