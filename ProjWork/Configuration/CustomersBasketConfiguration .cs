@@ -9,7 +9,7 @@ namespace ProjWork.Configuration
         public void Configure(EntityTypeBuilder<CustomersBasket> builder)
         {
             builder.HasKey(b => b.Id);
-
+            
             // Configure properties
             builder.Property(b => b.LastModified)
                 .IsRequired()

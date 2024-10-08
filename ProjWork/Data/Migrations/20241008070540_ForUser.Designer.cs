@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjWork.Data;
 
@@ -11,9 +12,11 @@ using ProjWork.Data;
 namespace ProjWork.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241008070540_ForUser")]
+    partial class ForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace ProjWork.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -73,12 +76,7 @@ namespace ProjWork.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CustomersBaskets");
                 });
@@ -174,16 +172,11 @@ namespace ProjWork.Migrations
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DeliveryMethodId");
 
                     b.HasIndex("ShipToAddressId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -319,39 +312,6 @@ namespace ProjWork.Migrations
                     b.ToTable("ProductTypes");
                 });
 
-            modelBuilder.Entity("ProjWork.Entities.User.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
                 {
                     b.HasOne("ProjWork.Entities.Basket.CustomersBasket", "CustomersBasket")
@@ -361,13 +321,6 @@ namespace ProjWork.Migrations
                         .IsRequired();
 
                     b.Navigation("CustomersBasket");
-                });
-
-            modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
-                {
-                    b.HasOne("ProjWork.Entities.User.User", null)
-                        .WithMany("Baskets")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Order.Order", b =>
@@ -383,10 +336,6 @@ namespace ProjWork.Migrations
                         .HasForeignKey("ShipToAddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ProjWork.Entities.User.User", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("DeliveryMethod");
 
@@ -435,13 +384,6 @@ namespace ProjWork.Migrations
             modelBuilder.Entity("ProjWork.Entities.Order.Order", b =>
                 {
                     b.Navigation("OrderedItems");
-                });
-
-            modelBuilder.Entity("ProjWork.Entities.User.User", b =>
-                {
-                    b.Navigation("Baskets");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
