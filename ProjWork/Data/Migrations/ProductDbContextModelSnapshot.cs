@@ -73,8 +73,6 @@ namespace ProjWork.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
 
 namespace ProjWork.Entities.Basket
 {
