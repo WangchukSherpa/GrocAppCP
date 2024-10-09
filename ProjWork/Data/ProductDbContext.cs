@@ -3,8 +3,8 @@ using ProjWork.Entities;
 using ProjWork.Entities.Basket;
 using ProjWork.Entities.Order;
 using ProjWork.Entities.User;
-using System.Reflection;
-using System.Security.Permissions;
+
+
 
 namespace ProjWork.Data
 {
@@ -14,6 +14,7 @@ namespace ProjWork.Data
         {
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
@@ -21,7 +22,8 @@ namespace ProjWork.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderedItems { get; set; }
         public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
-        public DbSet<User> Users { get; set; }
+        
+        public DbSet<BasketItem> BasketItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         //when we create the migration this is the
         //method This model is responsible for creating that migration

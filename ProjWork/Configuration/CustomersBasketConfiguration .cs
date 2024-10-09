@@ -8,6 +8,13 @@ namespace ProjWork.Configuration
     {
         public void Configure(EntityTypeBuilder<CustomersBasket> builder)
         {
+            builder.HasKey(b => b.Id);
+            
+            // Configure properties
+            builder.Property(b => b.LastModified)
+                .IsRequired()
+                .HasDefaultValueSql("GETUTCDATE()");
+
             builder.Property(b => b.Id).IsRequired(); // Ensure that Id is required
             builder.HasMany(b => b.Items) // One CustomersBasket has many BasketItems
             .WithOne(i => i.CustomersBasket) // Each BasketItem has one CustomersBasket

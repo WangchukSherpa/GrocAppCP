@@ -22,8 +22,6 @@ namespace ProjWork.Repo
 
         public int Skip { get; private set; }
 
-        public bool IsPagingEnabled => throw new NotImplementedException();
-
 
 
         //thread basic unit of utilize cpu
