@@ -20,6 +20,7 @@ export class LoginComponent {
             // Store the token in session storage
             sessionStorage.setItem('token', response.Token);
             sessionStorage.setItem('email', this.loginData.Email); // Store the email if needed
+            alert('Login Sucessfull!!! Happy Shopping')
   
             // Redirect to the home page or another page
             this.router.navigate(['/home']);

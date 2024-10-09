@@ -1,27 +1,25 @@
 <div class="container">
     <div class="row" *ngIf="product">
-    
-        <div class="col-md-6 col-12">
-            <img src="{{product.PictureUrl}}" alt="{{product.Name}}" class="img-fluid w-100">
+      <div class="col-md-6 col-12">
+        <img [src]="product.PictureUrl" alt="{{product.Name}}" class="img-fluid w-100">
+      </div>
+  
+      <div class="col-md-6 col-12 mt-5">
+        <h2>{{product.Name}}</h2>
+        <p class="text-success" style="font-size: 2em;">{{product.Price | currency:'INR'}}</p>
+  
+        <div class="d-flex justify-content-start align-items-center">
+          <i class="fa fa-minus-circle text-warning mr-2" style="cursor:pointer; font-size: 2em;" (click)="decreaseQuantity()"></i>
+          <span class="font-weight-bold mx-2" style="font-size: 1.5em;">{{quantity}}</span>
+          <i class="fa fa-plus-circle text-warning mx-2" style="cursor:pointer; font-size: 2em;" (click)="increaseQuantity()"></i>
+          <button class="btn btn-outline-secondary btn-lg ml-4" (click)="addToCart()">Add to Cart</button>
         </div>
-
-      
-        <div class="col-md-6 col-12 mt-5">
-            <h2>{{product.Name}}</h2>
-            <p class="text-success" style="font-size: 2em;">{{product.Price | currency:'INR'}}</p>
-
-            
-            <div class="d-flex justify-content-start align-items-center">
-                <i class="fa fa-minus-circle text-warning mr-2" style="cursor:pointer; font-size: 2em;"></i>
-                <span class="font-weight-bold mx-2" style="font-size: 1.5em;">2</span>
-                <i class="fa fa-plus-circle text-warning mx-2" style="cursor:pointer; font-size: 2em;"></i>
-                <button class="btn btn-outline-secondary btn-lg ml-4">Add to Cart</button>
-            </div>
-
-            <div class="mt-4">
-                <h4>Description</h4>
-                <p>{{product.Description}}</p>
-            </div>
+  
+        <div class="mt-4">
+          <h4>Description</h4>
+          <p>{{product.Description}}</p>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  

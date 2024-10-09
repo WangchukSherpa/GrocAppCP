@@ -1,46 +1,70 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { IBasket, IBasketItem } from '../models/basket.model';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { IBasket, IPost } from '../models/basket.model';
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
   private baseUrl = 'https://localhost:7275/api/Basket'; 
+  private basketSource = new BehaviorSubject<IBasket>(null);
+  basket$ = this.basketSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  getBasket(id: string): Observable<IBasket> {
-    return this.http.get<IBasket>(`${this.baseUrl}?id=${id}`);
+  // Get the basket by email and update basketSource
+  getBasket(): Observable<IBasket> {
+    const email = sessionStorage.getItem('email'); // Get email from session storage
+    if (!email) {
+      throw new Error('Email is not stored in session storage.');
+    }
+
+    const headers = this.createAuthorizationHeader(); // Add Authorization header
+    return this.http.get<IBasket>(`${this.baseUrl}/${email}`, { headers }).pipe(
+      map((basket: IBasket) => {
+        this.basketSource.next(basket); // Update basketSource
+        return basket;
+      })
+    );
   }
 
-  // addItemToBasket(basket: IBasket): Observable<IBasket> {
-  
-  //   return this.http.post<IBasket>(this.baseUrl, basket);
-  // }
-  // removeItemFromBasket(basketId: string, itemId: number): Observable<void> {
-  //   const url = `${this.baseUrl}?Id=${basketId}`;
-  //   console.log('Making DELETE request to:', url);
-  //   return this.http.delete<void>(url);
-  // }
-  addItemToBasket(basket: IBasket): Observable<IBasket> {
-    const token = sessionStorage.getItem('token'); // Get the token from session storage
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`, // Set the Authorization header
-      'Content-Type': 'application/json' // Set the Content-Type header if necessary
-    });
-
-    return this.http.post<IBasket>(this.baseUrl, basket, { headers });
+  // Add or update the basket
+  addItemToBasket(basket: IPost): Observable<IBasket> {
+    const headers = this.createAuthorizationHeader(); // Add Authorization header
+    return this.http.post<IPost>(this.baseUrl, basket, { headers }).pipe(
+      map((updatedBasket: IBasket) => {
+        this.basketSource.next(updatedBasket); // Update basketSource
+        return updatedBasket;
+      })
+    );
   }
 
-  removeItemFromBasket(basketId: string, itemId: number): Observable<void> {
-    const url = `${this.baseUrl}?Id=${basketId}`;
+  // Remove item from basket using item ID
+  removeItemFromBasket(itemId: number): Observable<void> {
+    const headers = this.createAuthorizationHeader(); // Add Authorization header
+    const url = `${this.baseUrl}/items/${itemId}`; // Use new DELETE endpoint
     console.log('Making DELETE request to:', url);
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url, { headers }).pipe(
+      map(() => {
+        const currentBasket = this.basketSource.value;
+        if (currentBasket) {
+          // Remove the item from the current basket and update basketSource
+          currentBasket.Items = currentBasket.Items.filter(item => item.Id !== itemId);
+          this.basketSource.next(currentBasket); // Update basketSource
+        }
+      })
+    );
+  }
+
+  // Helper function to create headers with the Authorization token
+  private createAuthorizationHeader(): HttpHeaders {
+    const token = sessionStorage.getItem('token'); // Get token from session storage
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers = headers.append('Authorization', `Bearer ${token}`);
+    }
+    return headers;
   }
 }
-  
-
-
-
