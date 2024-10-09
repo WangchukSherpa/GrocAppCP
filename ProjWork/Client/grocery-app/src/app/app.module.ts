@@ -10,11 +10,16 @@ import { HomeModule } from './home/home.module';
 import { ContactComponent } from './contact/contact.component';
 import { ContactModule } from './contact/contact.module';
 import { BasketComponent } from './basket/basket.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     BasketComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,8 @@ import { BasketComponent } from './basket/basket.component';
     CoreModule,
     ShopModule,
     HomeModule,
-    ContactModule
+    ContactModule,
+    FormsModule
 
     
   ],

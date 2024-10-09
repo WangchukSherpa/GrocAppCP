@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" [(ngModel)]="signupData.FirstName" name="firstName" required />
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" [(ngModel)]="signupData.LastName" name="lastName" required />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="signupData.Email" name="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="phoneNum" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNum" [(ngModel)]="signupData.PhoneNum" name="phoneNum" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="signupData.Password" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+  
