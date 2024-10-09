@@ -21,8 +21,8 @@ namespace ProjWork.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+  modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
 
-            modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,9 @@ namespace ProjWork.Migrations
                     b.ToTable("BasketItems");
                 });
 
+
             modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
+
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -77,6 +79,7 @@ namespace ProjWork.Migrations
 
                     b.ToTable("CustomersBaskets");
                 });
+
 
             modelBuilder.Entity("ProjWork.Entities.Order.Address", b =>
                 {
@@ -232,6 +235,7 @@ namespace ProjWork.Migrations
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Product", b =>
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -345,6 +349,7 @@ namespace ProjWork.Migrations
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
+
                 {
                     b.HasOne("ProjWork.Entities.Basket.CustomersBasket", "CustomersBasket")
                         .WithMany("Items")
@@ -408,6 +413,8 @@ namespace ProjWork.Migrations
                     b.Navigation("ProductType");
                 });
 
+
+
             modelBuilder.Entity("ProjWork.Entities.Basket.CustomersBasket", b =>
                 {
                     b.Navigation("Items");
@@ -417,6 +424,7 @@ namespace ProjWork.Migrations
                 {
                     b.Navigation("OrderedItems");
                 });
+
 #pragma warning restore 612, 618
         }
     }

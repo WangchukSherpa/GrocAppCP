@@ -1,0 +1,32 @@
+<div class="d-flex flex-row align-items-center justify-content-between px-4 mb-3 
+    bg-white border-bottom fixed-top shadow-sm">
+    <img src="assets/images/logo.png" alt="logo" class="logo" style="max-height: 100px;"   routerLink="/"  >
+    
+    <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
+        <a class="p-2" 
+        routerLink="" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{exact:true}" 
+        style="cursor: pointer;">Home</a>
+     
+     <a class="p-2" 
+        [routerLink]="['/shop']" 
+        routerLinkActive="active" 
+        style="cursor: pointer;">Shop</a>
+     
+     <a class="p-2" 
+        [routerLink]="['/contact']" 
+        routerLinkActive="active" 
+        style="cursor: pointer;">Contact</a>
+     
+    </nav>
+
+    <div class="d-flex align-items-center">
+        <a class="position-relative m-3">
+            <i   routerLink="/basket"  class="fa fa-shopping-cart fa-2x text-dark"></i>
+            <div class="cart-no">5</div>
+        </a>
+        <a class="btn btn-outline-secondary m-2" routerLink="/login">Login</a>
+        <a class="btn btn-outline-primary m-3" routerLink="/signup">Sign up</a>
+    </div>
+</div>

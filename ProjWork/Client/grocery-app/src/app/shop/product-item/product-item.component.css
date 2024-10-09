@@ -1,0 +1,35 @@
+.animated-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .animated-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .animated-card .card-img-top {
+    transition: transform 0.3s;
+  }
+  
+  .animated-card:hover .card-img-top {
+    transform: scale(1.1);
+  }
+  
+  .animated-card .btn-group button {
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .animated-card .btn-group button:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+  .animated-card .btn-group button {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .animated-card .btn-group button:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  

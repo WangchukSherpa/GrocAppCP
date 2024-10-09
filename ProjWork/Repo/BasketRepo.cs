@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
 using ProjWork.Entities.Basket;
+using ProjWork.Model;
 using ProjWork.Repo.Interface;
 using System.Text.Json;
 
