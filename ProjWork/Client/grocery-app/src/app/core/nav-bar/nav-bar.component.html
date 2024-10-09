@@ -26,7 +26,9 @@
             <i   routerLink="/basket"  class="fa fa-shopping-cart fa-2x text-dark"></i>
             <div class="cart-no">5</div>
         </a>
-        <a class="btn btn-outline-secondary m-2" routerLink="/login">Login</a>
-        <a class="btn btn-outline-primary m-3" routerLink="/signup">Sign up</a>
+        <a class="btn btn-outline-success m-2" routerLink="/login">Login</a>
+        <a class="btn btn-outline-danger m-3" (click)="logout()">Logout</a>
+
+        <a class="btn btn-outline-warning m-3" routerLink="/signup">Sign up</a>
     </div>
 </div>

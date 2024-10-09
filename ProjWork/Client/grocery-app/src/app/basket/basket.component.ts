@@ -18,7 +18,8 @@ export class BasketComponent implements OnInit {
   }
 
   loadBasket(): void {
-    const basketId = 'ba1'; // Use dynamic ID if needed
+    const userEmail = sessionStorage.getItem('email'); 
+    const basketId = userEmail; 
     this.basketService.getBasket(basketId).subscribe(
       (response) => {
         this.basket = response;

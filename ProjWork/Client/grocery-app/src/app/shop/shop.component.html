@@ -1,62 +1,83 @@
 <div class="container mt-5">
     <div class="row">
-
+        <!-- Filters Section (Left Sidebar) -->
         <section class="col-3">
-            <h5  class="text-warning ml-3">Sort</h5>
+            <!-- Sort Dropdown -->
+            <h5 class="text-warning ml-3">Sort</h5>
             <select name="" id="" class="custom-select mb-3" (change)="onSortSelected($event)">
-                <option *ngFor="let sort of sortOptions"
-                 [value]="sort.value">
+                <option *ngFor="let sort of sortOptions" [value]="sort.value">
                     {{ sort.name }}
                 </option>
             </select>
-            
 
-
-            <h5  class="text-warning ml-3">Brands</h5>
-            <ul class="list-group my-3 ">
-                <li class="list-group-item " *ngFor="let brand of brands"
-                [class.active]="brand.Id===this.brandIdSelected"
-                  [value]="brand.Id"
-                  (click)="onBrandSelected(brand.Id)"
-                >
-                    {{brand.Name}}
+            <!-- Brands Filter -->
+            <h5 class="text-warning ml-3">Brands</h5>
+            <ul class="list-group my-3">
+                <li class="list-group-item" *ngFor="let brand of brands"
+                    [class.active]="brand.Id === brandIdSelected"
+                    (click)="onBrandSelected(brand.Id)">
+                    {{ brand.Name }}
                 </li>
+            </ul>
 
-
-              </ul>
-              <h5  class="text-warning ml-3">Types</h5>
-              <ul class="list-group my-3">
-                <li class="list-group-item " *ngFor="let type of types"
-                [class.active]="type.Id===this.typeIdSelected"
-                [value]="type.Id"
-                (click)="onTypeSelected(type.Id)"
-                >
-                    {{type.Name}}
+            <!-- Types Filter -->
+            <h5 class="text-warning ml-3">Types</h5>
+            <ul class="list-group my-3">
+                <li class="list-group-item" *ngFor="let type of types"
+                    [class.active]="type.Id === typeIdSelected"
+                    (click)="onTypeSelected(type.Id)">
+                    {{ type.Name }}
                 </li>
-        
-              </ul>
+            </ul>
         </section>
+
+        <!-- Products Section (Right Content) -->
         <section class="col-9">
             <div class="d-flex justify-content-between align-items-center pb-2">
+                <!-- Showing the number of products -->
                 <header>
-                    <span>Showing <strong>{{products.length}}</strong> of <strong>{{totalProducts}}</strong> Results</span>
+                    <span>Showing <strong>{{ products.length }}</strong> of <strong>{{ totalProducts }}</strong> Results</span>
                 </header>
-                
-            <div class="form-inline mt-2 ml-2">
-                <input   (keyup.enter)="onSearch()"  class="form-control mr-2" #searchTerm style="width: 300px" placeholder="Search" type="text">
-                <button class="btn btn-outline-primary mr-5 my-2" (click)="onSearch()">Search</button>
-                <button class="btn btn-outline-success mr-5 ml-2 my-2"  (click)="onReset()">Reset</button>
-            </div>
-            
 
+                <!-- Search Bar -->
+                <div class="form-inline mt-2 ml-2">
+                    <input (keyup.enter)="onSearch()" class="form-control mr-2" #searchTerm style="width: 300px" placeholder="Search" type="text">
+                    <button class="btn btn-outline-primary mr-5 my-2" (click)="onSearch()">Search</button>
+                    <button class="btn btn-outline-success mr-5 ml-2 my-2" (click)="onReset()">Reset</button>
+                </div>
             </div>
+
+            <!-- Product List -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col-4 mb-4" *ngFor="let product of products">
-                  <app-product-item [product]="product"></app-product-item> <!-- Pass product to child -->
+                    <app-product-item [product]="product"></app-product-item> <!-- Pass product to child component -->
                 </div>
-              </div>
-              
-              
+            </div>
+
+            <!-- Pagination Controls -->
+            <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                <ul class="pagination">
+                    <!-- Previous Button -->
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <a class="page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Page Numbers -->
+                    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                        [class.active]="currentPage === (i + 1)">
+                        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+                    </li>
+
+                    <!-- Next Button -->
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <a class="page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </section>
     </div>
 </div>
