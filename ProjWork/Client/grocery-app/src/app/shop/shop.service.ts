@@ -9,29 +9,26 @@ import { map } from 'rxjs';
 export class ShopService {
   baseUrl='https://localhost:7275/api/'
   constructor(private http:HttpClient) { }
-  getProducts(brandId?:number ,typeId?:number,sort?:string){
-    let params=new HttpParams();
-    if(brandId){
-      params=params.append('productbrandId',brandId.toString());
+  getProducts(brandId?: number, typeId?: number, sort?: string, skip: number = 0, take: number = 10) {
+    let params = new HttpParams();
+
+    if (brandId) {
+      params = params.append('productbrandId', brandId.toString());
     }
-    if(typeId)
-      {
-        params = params.append('productTypeId', typeId.toString());
+    if (typeId) {
+      params = params.append('productTypeId', typeId.toString());
     }
-    if(sort){
-      params=params.append('sortBy',sort);
+    if (sort) {
+      params = params.append('sortBy', sort);
     }
 
+    // Add skip and take for pagination
+    params = params.append('skip', skip.toString());
+    params = params.append('take', take.toString());
 
+    return this.http.get<any>('https://localhost:7275/api/Products', { params });
+}
 
-    return this.http.get<IProduct[]>(this.baseUrl+'Products', {observe:'response',params} )
-    .pipe(
-      map(response=>{
-        return response.body;
-      })
-    );
-   
-    }
     // https://localhost:7275/api/Products/3
     // getProductById(id:number){
     //   return this.http.get<IProduct>(this.baseUrl+'Products/'+id);
