@@ -5,6 +5,7 @@ using ProjWork.Data;
 using ProjWork.Helper;
 using ProjWork.Repo;
 using ProjWork.Repo.Interface;
+using ProjWork.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IOrderServices,OrderService>();
 builder.Services.AddScoped<ProductFilterHelper>();
 builder.Services.AddScoped<IBasketRepo, BasketRepo>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddSwaggerGen();
 
 // Remove this line as we're configuring authentication below
