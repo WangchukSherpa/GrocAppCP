@@ -1,0 +1,30 @@
+.cart-no{
+    position: absolute;
+    min-width: 25px;
+    min-height: 25px;
+    border-radius: 50%;
+    font-size: 1em;
+    background: blue;
+    color: white;
+    text-align: center;
+    text-align: center;
+    top: -15px;
+    right: -9px;
+}
+
+nav a {
+    color: black;
+    text-decoration: none; 
+    padding: 0.5rem; 
+}
+
+nav a.active {
+    color:orange;
+    font-weight: bold; 
+    text-decoration: none; 
+}
+
+nav a:hover {
+    color: #007bff; 
+    text-decoration: none; 
+}

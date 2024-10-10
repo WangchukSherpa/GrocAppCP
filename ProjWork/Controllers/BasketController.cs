@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjWork.Entities.Basket;
 using ProjWork.Repo.Interface;
@@ -25,7 +25,7 @@ namespace ProjWork.Controllers
         }
 
         // Get current user's basket without requiring ID
-        [HttpGet("my")]
+      /*  [HttpGet("my")]
         public async Task<ActionResult<CustomersBasket>> GetMyBasket()
         {
             try
@@ -47,7 +47,7 @@ namespace ProjWork.Controllers
                 return Unauthorized(new { message = "User not authenticated" });
             }
         }
-
+*/
         // Get specific basket by ID (with authorization check)
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomersBasket>> GetCustomerBasketById([FromRoute] string id)
@@ -62,7 +62,7 @@ namespace ProjWork.Controllers
                 var userId = GetUserId();
                 if (id != userId)
                 {
-                    
+
                     return StatusCode(403, new { message = "You can only access your own basket" });
                 }
 
@@ -128,7 +128,7 @@ namespace ProjWork.Controllers
                     return NotFound(new { message = "Basket not found" });
                 }
 
-            
+
                 var itemBelongsToUser = basket.Items.Any(item => item.Id == id);
                 if (!itemBelongsToUser)
                 {

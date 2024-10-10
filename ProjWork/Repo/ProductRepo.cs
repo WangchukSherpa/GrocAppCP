@@ -11,18 +11,18 @@ namespace ProjWork.Repo
     {
         private readonly ProductDbContext _context;
 
-       
-        
+
+
 
         public ProductRepo(ProductDbContext context)
         {
             _context = context;
         }
-         public int Take { get; private set; }
+        public int Take { get; private set; }
 
         public int Skip { get; private set; }
 
-      
+
 
         //thread basic unit of utilize cpu
         //Task a single unit of work
@@ -36,10 +36,10 @@ namespace ProjWork.Repo
             return await _context.Products
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
-                .FirstOrDefaultAsync(p=>p.Id==id);
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync(int skip,int take)
+        public async Task<IReadOnlyList<Product>> GetProductsAsync(int skip, int take)
         {
             return await _context.Products
                 .Include(p => p.ProductType)
@@ -53,7 +53,7 @@ namespace ProjWork.Repo
             return _context.Products
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
-                .AsQueryable(); 
+                .AsQueryable();
         }
         public async Task<IReadOnlyList<ProductType>> GetProductTypeAsync()
         {

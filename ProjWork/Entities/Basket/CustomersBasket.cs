@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace ProjWork.Entities.Basket
 {
     public class CustomersBasket
@@ -18,4 +20,5 @@ namespace ProjWork.Entities.Basket
         [ConcurrencyCheck]
         public DateTime LastModified { get; set; } = DateTime.UtcNow;
     }
+
 }

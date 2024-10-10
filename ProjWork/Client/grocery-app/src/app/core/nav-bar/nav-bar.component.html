@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top shadow-sm">
+    <div class="container-fluid px-4">
+        <!-- Logo -->
+        <a class="navbar-brand" routerLink="/">
+            <img src="assets/images/logo.png" alt="logo" class="logo" style="max-height: 80px;">
+        </a>
+
+        <!-- Navbar toggle for mobile view -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase" style="font-size: larger;">
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       routerLink="" 
+                       routerLinkActive="active" 
+                       [routerLinkActiveOptions]="{exact:true}" 
+                       style="cursor: pointer;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       [routerLink]="['/shop']" 
+                       routerLinkActive="active" 
+                       style="cursor: pointer;">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       [routerLink]="['/contact']" 
+                       routerLinkActive="active" 
+                       style="cursor: pointer;">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right side: Cart and user options -->
+            <div class="d-flex align-items-center">
+              <!-- Shopping cart icon -->
+<a href="/basket" class="position-relative m-3">
+    <i class="fa fa-shopping-cart fa-2x text-dark"></i>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ getCartItemCount() }}
+        <span class="visually-hidden">items in cart</span>
+    </span>
+</a>
+
+                <!-- Login / Logout / Signup buttons -->
+                <a class="btn btn-outline-success m-2" routerLink="/login">Login</a>
+                <a class="btn btn-outline-danger m-3" (click)="logout()">Logout</a>
+                <a class="btn btn-outline-warning m-3" routerLink="/signup">Sign up</a>
+            </div>
+        </div>
+    </div>
+</nav>
