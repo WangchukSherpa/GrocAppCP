@@ -13,6 +13,11 @@ import { BasketComponent } from './basket/basket.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("token"); // This function retrieves the token from localStorage
+}
 
 @NgModule({
   declarations: [
@@ -29,8 +34,20 @@ import { FormsModule } from '@angular/forms';
     ShopModule,
     HomeModule,
     ContactModule,
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:7275"],  // Replace this with your backend's domain
+        disallowedRoutes: [
+          "http://localhost:7275/api/auth/login",  // Add your public routes here
+          "http://localhost:7275/api/auth/signup",
+          "http://localhost:7275/api/auth/shop"
 
+        ]
+      }
+    })
+  
     
   ],
   providers: [],

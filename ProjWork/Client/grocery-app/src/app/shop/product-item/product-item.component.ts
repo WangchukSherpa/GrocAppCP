@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IProduct } from '../../models/product.model';
 import { IBasket, IBasketItem, IBasketPost ,IPost} from '../../models/basket.model';
 import { BasketService } from '../../basket/basket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -11,9 +12,17 @@ import { BasketService } from '../../basket/basket.service';
 export class ProductItemComponent {
   @Input() product: IProduct; // Ensure @Input is used for product
 
-  constructor(private basketService: BasketService) {}
+  constructor(private basketService: BasketService,private router:Router) {}
 
   addItemToBasket(product: IProduct): void {
+    const token = sessionStorage.getItem('token');  
+  
+    
+    if (!token) {
+      alert('You need to Login First Before Adding to Your Cart!!')
+      this.router.navigate(['/login']);
+      return;
+    }
     const newItem: IBasketPost = {
       ProductName: product.Name,
       Price: product.Price,

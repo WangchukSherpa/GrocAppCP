@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../models/product.model';
 import { ShopService } from '../shop.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { BasketService } from '../../basket/basket.service';
 import { IBasket, IBasketItem, IBasketPost, IPost } from '../../models/basket.model';
@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit {
     private shopService: ShopService,
     private activeRoute: ActivatedRoute,
     private bcService: BreadcrumbService,
+    private router:Router,
     private basketService: BasketService // Added basket service
   ) {}
 
@@ -47,6 +48,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(): void {
+    const token = sessionStorage.getItem('token');  
+  
+    
+    if (!token) {
+      alert('You need to Login First Before Adding to Your Cart!!')
+      this.router.navigate(['/login']);
+      return;
+    }
     const userEmail = sessionStorage.getItem('email');
     const newItem: IBasketPost = {
       
