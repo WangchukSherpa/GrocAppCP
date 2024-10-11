@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjWork.Entities;
 using ProjWork.Entities.Basket;
+using ProjWork.Repo;
 using ProjWork.Repo.Interface;
 using System.Security.Claims;
 
@@ -12,10 +14,13 @@ namespace ProjWork.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepo _basketRepo;
+        private readonly IGenericRepository<Product> _prRepo;
 
-        public BasketController(IBasketRepo basketRepo)
+        public BasketController(IBasketRepo basketRepo,
+                     IGenericRepository<Product> productRepo)
         {
             _basketRepo = basketRepo;
+            _prRepo = productRepo;
         }
 
         private string GetUserId()
@@ -96,7 +101,40 @@ namespace ProjWork.Controllers
                 // Ensure the basket ID matches the authenticated user
                 basket.Id = userId; // Force the basket ID to be the user's ID
 
-                var updatedBasket = await _basketRepo.UpdateBasketAsync(basket);
+                var validatedItems = new List<BasketItem>();
+                foreach (var item in basket.Items)
+                {
+                    // Get the product from database to validate it exists and get correct data
+                    var product = await _prRepo.GetByIdAsync(item.Id);
+                    if (product == null)
+                    {
+                        return BadRequest(new { message = $"Product with ID {item.Id} not found" });
+                    }
+
+                    // Create a new basket item with validated data
+                    var validatedItem = new BasketItem
+                    {
+                        Id = product.Id, // Set ID to match product ID
+                        ProductName = product.Name,
+                        Price = product.Price,
+                        PictureUrl = product.PictureUrl,
+                        Brand = product.ProductBrand?.Name ?? "Unknown", // Assuming ProductBrand has a Name property
+                        Type = product.ProductType?.Name ?? "Unknown",   // Assuming ProductType has a Name property
+                        Quantity = item.Quantity,
+                        CustomersBasketId = userId
+                    };
+
+                    validatedItems.Add(validatedItem);
+                }
+
+                // Create validated basket
+                var validatedBasket = new CustomersBasket(userId)
+                {
+                    Items = validatedItems,
+                    LastModified = DateTime.UtcNow
+                };
+
+                var updatedBasket = await _basketRepo.UpdateBasketAsync(validatedBasket);
                 return Ok(updatedBasket);
             }
             catch (UnauthorizedAccessException)
