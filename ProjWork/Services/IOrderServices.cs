@@ -7,7 +7,7 @@ namespace ProjWork.Services
         Task<Order> CreateOrderAsync(string buyerEmail, int diliveryMethod, string basketId,
         Address shippingAddress);
         Task<IReadOnlyList<Order>> GetOrderForUsersAsync(string buyerEmail);
-        Task<Order> GetOrderByIdAsync(string id,string buyerEmail);
+        Task<Order> GetOrderByIdAsync(int id,string buyerEmail);
         Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync();
 
 

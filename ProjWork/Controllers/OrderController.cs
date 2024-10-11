@@ -34,5 +34,23 @@ namespace ProjWork.Controllers
             }
             return  Ok(order);
         }
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser() { 
+            var email = HttpContext.User.RetriveEmailFromPrinciple();
+            var orders = await _orderServices.GetOrderForUsersAsync(email);
+            return Ok(_mapper.Map<IReadOnlyList<Order>,IReadOnlyList<OrderToReturnDto>>(orders));
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderToReturnDto>> GetOrderByIdUser(int id) {
+            var email = HttpContext.User.RetriveEmailFromPrinciple();
+            var order= await _orderServices.GetOrderByIdAsync(id, email);
+            if (order == null)  return NotFound($"order witd {id} not found");
+            return _mapper.Map<Order,OrderToReturnDto>(order);
+        }
+        [HttpGet("deliveryMethod")]
+        public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethod() {
+            var deliveryMethod = await _orderServices.GetDeliveryMethodsAsync();
+            return Ok(deliveryMethod);
+        }
     }
 }

@@ -21,10 +21,13 @@ builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IOrderServices,OrderService>();
 builder.Services.AddScoped<ProductFilterHelper>();
 builder.Services.AddScoped<IBasketRepo, BasketRepo>();
+builder.Services.AddScoped<IDeliveryMethodRepo, DeliveryMethodRepo>();
+
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 builder.Services.AddSwaggerGen();
 
 // Remove this line as we're configuring authentication below
