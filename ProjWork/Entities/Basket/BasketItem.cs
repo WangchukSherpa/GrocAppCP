@@ -5,6 +5,7 @@ namespace ProjWork.Entities.Basket
 {
     public class BasketItem
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string ProductName { get; set; }
         [Column(TypeName = "decimal(18, 2)")]

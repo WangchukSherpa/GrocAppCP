@@ -25,10 +25,7 @@ namespace ProjWork.Migrations
             modelBuilder.Entity("ProjWork.Entities.Basket.BasketItem", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -162,7 +159,6 @@ namespace ProjWork.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ShipToAddressId")
@@ -196,9 +192,6 @@ namespace ProjWork.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ItemOrderedId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
@@ -210,35 +203,9 @@ namespace ProjWork.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemOrderedId");
-
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderedItems");
-                });
-
-            modelBuilder.Entity("ProjWork.Entities.Order.ProductItemOrdered", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("PictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductItemOrdered");
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Product", b =>
@@ -395,17 +362,36 @@ namespace ProjWork.Migrations
 
             modelBuilder.Entity("ProjWork.Entities.Order.OrderItem", b =>
                 {
-                    b.HasOne("ProjWork.Entities.Order.ProductItemOrdered", "ItemOrdered")
-                        .WithMany()
-                        .HasForeignKey("ItemOrderedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProjWork.Entities.Order.Order", null)
                         .WithMany("OrderedItems")
                         .HasForeignKey("OrderId");
 
-                    b.Navigation("ItemOrdered");
+                    b.OwnsOne("ProjWork.Entities.Order.ProductItemOrdered", "ItemOrdered", b1 =>
+                        {
+                            b1.Property<int>("OrderItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("PictureUrl")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ProductItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ProductName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderItemId");
+
+                            b1.ToTable("OrderedItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderItemId");
+                        });
+
+                    b.Navigation("ItemOrdered")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjWork.Entities.Product", b =>
