@@ -14,10 +14,10 @@ namespace ProjWork.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepo _basketRepo;
-        private readonly IGenericRepository<Product> _prRepo;
+        private readonly IProductRepo _prRepo;
 
         public BasketController(IBasketRepo basketRepo,
-                     IGenericRepository<Product> productRepo)
+                     IProductRepo productRepo)
         {
             _basketRepo = basketRepo;
             _prRepo = productRepo;
@@ -105,7 +105,7 @@ namespace ProjWork.Controllers
                 foreach (var item in basket.Items)
                 {
                     // Get the product from database to validate it exists and get correct data
-                    var product = await _prRepo.GetByIdAsync(item.Id);
+                    var product = await _prRepo.GetProductByIdAsync(item.Id);
                     if (product == null)
                     {
                         return BadRequest(new { message = $"Product with ID {item.Id} not found" });

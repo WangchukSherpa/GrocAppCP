@@ -47,7 +47,7 @@ namespace ProjWork.Services
             }
 
             var deliveryMethod = await _delRepo.GetByIdDeliveryAsync(delMId);
-            var subtotal = items.Sum(item => item.Price * item.Quantity);
+            var subtotal = items.Sum(item => (item.Price * item.Quantity)+ deliveryMethod.Price);
             var order = new Order(buyerEmail, shipingAddress, deliveryMethod, items, subtotal);
 
             await _orderRepo.AddAsync(order);
