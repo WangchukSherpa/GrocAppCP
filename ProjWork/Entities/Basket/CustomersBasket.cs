@@ -19,6 +19,10 @@ namespace ProjWork.Entities.Basket
         public List<BasketItem> Items { get; set; } = new List<BasketItem>();
         [ConcurrencyCheck]
         public DateTime LastModified { get; set; } = DateTime.UtcNow;
+        public int? DeliveryMethodId {  get; set; }
+        public string? ClientSecret { get; set; }
+        public string? PaymentId { get; set; }
+
     }
 
 }
