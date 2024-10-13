@@ -17,7 +17,7 @@ namespace ProjWork.Controllers
         private readonly IProductRepo _prRepo;
 
         public BasketController(IBasketRepo basketRepo,
-                    IProductRepo productRepo)
+                     IProductRepo productRepo)
         {
             _basketRepo = basketRepo;
             _prRepo = productRepo;
