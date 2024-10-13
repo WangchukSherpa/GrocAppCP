@@ -4,7 +4,7 @@ import { ShopService } from '../shop.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { BasketService } from '../../basket/basket.service';
-import { IBasket, IBasketItem, IBasketPost, IPost } from '../../models/basket.model';
+import { IBasket, IBasketItem } from '../../models/basket.model';
 
 @Component({
   selector: 'app-product-details',
@@ -38,10 +38,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   increaseQuantity(): void {
-    this.quantity += 1;
+    //console.log('Increase button Pressed');
+        this.quantity += 1;
   }
 
   decreaseQuantity(): void {
+    //console.log('Decrease button Pressed');
     if (this.quantity > 1) {
       this.quantity -= 1;
     }
@@ -57,8 +59,8 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     const userEmail = sessionStorage.getItem('email');
-    const newItem: IBasketPost = {
-      
+    const newItem: IBasketItem = {
+      Id: this.product.Id,
       ProductName: this.product.Name,
       Price: this.product.Price,
       Quantity: this.quantity,
@@ -68,7 +70,7 @@ export class ProductDetailsComponent implements OnInit {
       customersBasketId: userEmail // Ensure the basket ID is correct
     };
 
-    const payload: IPost = {
+    const payload: IBasket = {
       Id: userEmail,
       Items: [newItem]
     };
