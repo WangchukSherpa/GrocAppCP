@@ -52,5 +52,17 @@ namespace ProjWork.Controllers
             var deliveryMethod = await _orderServices.GetDeliveryMethodsAsync();
             return Ok(deliveryMethod);
         }
+        [HttpGet("byEmail/{email}")]
+        public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>> GetOrdersByEmail(string email)
+        {
+            var orders = await _orderServices.GetOrderForUsersAsync(email);
+            if (orders == null || orders.Count == 0)
+            {
+                return NotFound($"No orders found for email: {email}");
+            }
+
+            return Ok(_mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders));
+        }
+
     }
 }

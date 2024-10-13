@@ -49,9 +49,12 @@
                     Welcome {{ getUserFirstName() }}!
                 </span>
                 
-                <a class="btn btn-outline-success m-2" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
-                <a class="btn btn-outline-danger m-3" (click)="logout()" *ngIf="isLoggedIn()">Logout</a>
                 <a class="btn btn-outline-warning m-3" routerLink="/signup" *ngIf="!isLoggedIn()">Sign up</a>
+                <a class="btn btn-outline-danger m-3" (click)="logout()" *ngIf="isLoggedIn()">Logout</a>
+                <a class="btn btn-outline-success m-3" routerLink="/my-orders" *ngIf="isLoggedIn()">
+                    <i class="fa fa-list-alt"></i> My Orders
+                </a>
+                <a class="btn btn-outline-success m-2" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
             </div>
         </div>
     </div>

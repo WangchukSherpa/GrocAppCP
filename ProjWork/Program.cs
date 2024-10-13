@@ -21,6 +21,7 @@ builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IOrderServices,OrderService>();
 builder.Services.AddScoped<ProductFilterHelper>();
 builder.Services.AddScoped<IBasketRepo, BasketRepo>();
+builder.Services.AddScoped<IPaymentService,PaymentService>();
 builder.Services.AddScoped<IDeliveryMethodRepo, DeliveryMethodRepo>();
 
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();

@@ -14,47 +14,60 @@ namespace ProjWork.Services
         private readonly IBasketRepo _basketRepo;
 
         public OrderService(IOrderRepo orderRepo,
-            IDeliveryMethodRepo delRepo, 
-            IProductRepo prRepo
-            ,IBasketRepo basketRepo) {
+            IDeliveryMethodRepo delRepo,
+            IProductRepo prRepo,
+            IBasketRepo basketRepo)
+        {
             _orderRepo = orderRepo;
             _delRepo = delRepo;
             _prRepo = prRepo;
             _basketRepo = basketRepo;
         }
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int delMId, string basketId, Address shipingAddress)
+
+        public async Task<Order> CreateOrderAsync(string buyerEmail, int delMId, string basketId, Address shippingAddress)
         {
+            // Fetch the basket
             var basket = await _basketRepo.GetBasketAsync(basketId);
             if (basket == null)
             {
                 throw new Exception($"Basket not found for ID: {basketId}");
             }
 
+            // Prepare the order items
             var items = new List<OrderItem>();
             foreach (var item in basket.Items)
             {
-                
-                var productItem= await _prRepo.GetProductByIdAsync(item.Id);
-             // Use ProductId instead of Id
+                var productItem = await _prRepo.GetProductByIdAsync(item.Id);
                 if (productItem == null)
                 {
                     throw new Exception($"Product with Id {item.Id} not found.");
                 }
 
-                var itemOrder = new ProductItemOrdered(productItem.Id, productItem.Name, productItem.PictureUrl);
-                var orderItem = new OrderItem(itemOrder, productItem.Price, item.Quantity);
+                var itemOrdered = new ProductItemOrdered(productItem.Id, productItem.Name, productItem.PictureUrl);
+                var orderItem = new OrderItem(itemOrdered, productItem.Price, item.Quantity);
                 items.Add(orderItem);
             }
 
+            // Fetch the delivery method
             var deliveryMethod = await _delRepo.GetByIdDeliveryAsync(delMId);
-            var subtotal = items.Sum(item => (item.Price * item.Quantity)+ deliveryMethod.Price);
-            var order = new Order(buyerEmail, shipingAddress, deliveryMethod, items, subtotal);
+            if (deliveryMethod == null)
+            {
+                throw new Exception($"Delivery method with ID {delMId} not found.");
+            }
 
+            // Calculate subtotal (without including the delivery price)
+            var subtotal = items.Sum(item => item.Price * item.Quantity);
+
+            // Create the order
+            var order = new Order(buyerEmail, shippingAddress, deliveryMethod, items, subtotal);
+
+            // Add the order to the database
             await _orderRepo.AddAsync(order);
             await _orderRepo.SaveChangesAsync();
 
             return order;
         }
+
         public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync()
         {
             return await _delRepo.ListAllDeliveryAsync();
@@ -62,10 +75,15 @@ namespace ProjWork.Services
 
         public async Task<Order> GetOrderByIdAsync(int id, string buyerEmail)
         {
-            var order = await _orderRepo.GetByIdAsync(id);
+            // Fetch the order with eager loading for related data
+            var order = await _orderRepo.GetOrders()
+                .Include(o => o.DeliveryMethod)   // Include DeliveryMethod
+                .Include(o => o.OrderedItems)       // Include OrderItems
+                    .ThenInclude(i => i.ItemOrdered) // Include the nested ProductItemOrdered
+                .Include(o => o.ShipToAddress)    // Include ShipToAddress
+                .FirstOrDefaultAsync(o => o.Id == id && o.BuyerEmail == buyerEmail);
 
-            // Check if the order is null or if the buyerEmail does not match
-            if (order == null || order.BuyerEmail != buyerEmail)
+            if (order == null)
             {
                 throw new InvalidOperationException($"Order with ID {id} not found or does not belong to the buyer with email {buyerEmail}.");
             }
@@ -75,7 +93,14 @@ namespace ProjWork.Services
 
         public async Task<IReadOnlyList<Order>> GetOrderForUsersAsync(string buyerEmail)
         {
-            var orders=_orderRepo.GetOrders().Where(o=>o.BuyerEmail==buyerEmail);
+            // Fetch all orders for the specified buyer with eager loading
+            var orders = _orderRepo.GetOrders()
+                .Where(o => o.BuyerEmail == buyerEmail)
+                .Include(o => o.DeliveryMethod)   // Include DeliveryMethod
+                .Include(o => o.OrderedItems)       // Include OrderItems
+                    .ThenInclude(i => i.ItemOrdered) // Include ProductItemOrdered
+                .Include(o => o.ShipToAddress);   // Include ShipToAddress
+
             var orderList = await orders.ToListAsync();
             return orderList.AsReadOnly();
         }

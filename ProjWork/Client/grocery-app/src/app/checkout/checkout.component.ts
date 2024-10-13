@@ -75,6 +75,7 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit(): void {
     console.log('Form Submission Triggered')
+
     if (this.checkoutForm.invalid) {
       return;
     }
@@ -100,7 +101,8 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.placeOrder(checkoutData).subscribe({
       next: (response) => {
         console.log('Order placed successfully', response);
-        this.router.navigate(['/order-success']);
+        this.router.navigate(['/payment']);
+    
       },
       error: (err) => console.error('Order placement failed', err)
     });
