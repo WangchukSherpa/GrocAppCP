@@ -1,0 +1,104 @@
+<div class="container mt-5">
+    <div class="row">
+      <!-- Checkout Form -->
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Shipping Address</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+              
+              <!-- Flat/House No -->
+              <div class="form-group mb-3">
+                <label for="FlatHouseNo">Flat/House No</label>
+                <input type="text" class="form-control" formControlName="FlatHouseNo" placeholder="Enter Flat/House No" />
+                <div *ngIf="checkoutForm.get('FlatHouseNo')?.invalid && checkoutForm.get('FlatHouseNo')?.touched" class="text-danger">
+                  Flat/House No is required
+                </div>
+              </div>
+  
+              <!-- Area/Sector -->
+              <div class="form-group mb-3">
+                <label for="AreaSector">Area/Sector</label>
+                <input type="text" class="form-control" formControlName="AreaSector" placeholder="Enter Area/Sector" />
+                <div *ngIf="checkoutForm.get('AreaSector')?.invalid && checkoutForm.get('AreaSector')?.touched" class="text-danger">
+                  Area/Sector is required
+                </div>
+              </div>
+  
+              <!-- Landmark -->
+              <div class="form-group mb-3">
+                <label for="LandMark">Landmark</label>
+                <input type="text" class="form-control" formControlName="LandMark" placeholder="Enter Landmark" />
+                <div *ngIf="checkoutForm.get('LandMark')?.invalid && checkoutForm.get('LandMark')?.touched" class="text-danger">
+                  Landmark is required
+                </div>
+              </div>
+  
+              <!-- Pincode -->
+              <div class="form-group mb-3">
+                <label for="Pincode">Pincode</label>
+                <input type="text" class="form-control" formControlName="Pincode" placeholder="Enter Pincode" />
+                <div *ngIf="checkoutForm.get('Pincode')?.invalid && checkoutForm.get('Pincode')?.touched" class="text-danger">
+                  Valid Pincode is required (6 digits)
+                </div>
+              </div>
+  
+              <!-- City -->
+              <div class="form-group mb-3">
+                <label for="City">City</label>
+                <input type="text" class="form-control" formControlName="City" placeholder="Enter City" />
+                <div *ngIf="checkoutForm.get('City')?.invalid && checkoutForm.get('City')?.touched" class="text-danger">
+                  City is required
+                </div>
+              </div>
+  
+              <!-- State -->
+              <div class="form-group mb-4">
+                <label for="State">State</label>
+                <input type="text" class="form-control" formControlName="State" placeholder="Enter State" />
+                <div *ngIf="checkoutForm.get('State')?.invalid && checkoutForm.get('State')?.touched" class="text-danger">
+                  State is required
+                </div>
+              </div>
+  
+              <!-- Delivery Method Dropdown -->
+              <h4 class="mb-3">Delivery Method</h4>
+              <div class="form-group mb-4">
+                <label for="deliveryMethod">Select Delivery Method:</label>
+                <select class="form-control" formControlName="DeliveryMethodId">
+                  <option value="1">Free - Delivery within a week (₹0.00)</option>
+                  <option value="2">DV1 - Delivery within 4 days (₹15.00)</option>
+                  <option value="3">DV2 - Delivery within 2 days (₹30.00)</option>
+                  <option value="4">DV3 - Delivery within 1 day (₹40.00)</option>
+                  <option value="5">DV4 - Delivery within 12 hours (₹50.00)</option>
+                </select>
+              </div>
+  
+              <!-- Submit Button -->
+              <div class="d-grid gap-2">
+                <button  routerLink="/payment" type="submit" class="btn btn-primary btn-lg" [disabled]="checkoutForm.invalid">Place Order and Pay</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Order Total Card -->
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Order Summary</h4>
+          </div>
+          <div class="card-body">
+            <p class="mb-2">Products Total: <strong>{{ getTotalPrice() | currency:'INR' }}</strong></p>
+            <p class="mb-2">Delivery Charges: <strong>{{ deliveryCharge | currency:'INR' }}</strong></p>
+            <hr />
+            <h4 class="mb-3">Order Total: <strong>{{ getOrderTotal() | currency:'INR' }}</strong></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

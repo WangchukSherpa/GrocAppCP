@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IBasket, IPost } from '../models/basket.model';
+import { IBasket } from '../models/basket.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class BasketService {
+  basket: IBasket;
+  shippingCharge: number = 50;
+  total:number;
   private baseUrl = 'https://localhost:7275/api/Basket'; 
   private basketSource = new BehaviorSubject<IBasket>(null);
   basket$ = this.basketSource.asObservable();
 
   constructor(private http: HttpClient) {}
+  
+
 
   // Get the basket by email and update basketSource
   getBasket(): Observable<IBasket> {
@@ -31,9 +37,9 @@ export class BasketService {
   }
 
   // Add or update the basket
-  addItemToBasket(basket: IPost): Observable<IBasket> {
+  addItemToBasket(basket: IBasket): Observable<IBasket> {
     const headers = this.createAuthorizationHeader(); // Add Authorization header
-    return this.http.post<IPost>(this.baseUrl, basket, { headers }).pipe(
+    return this.http.post<IBasket>(this.baseUrl, basket, { headers }).pipe(
       map((updatedBasket: IBasket) => {
         this.basketSource.next(updatedBasket); // Update basketSource
         return updatedBasket;

@@ -9,7 +9,8 @@ import { IBasket, IBasketItem } from '../models/basket.model';
 })
 export class BasketComponent implements OnInit {
   basket: IBasket;
-
+  
+  total:number;
   constructor(private basketService: BasketService) {}
 
   ngOnInit(): void {
@@ -43,10 +44,17 @@ export class BasketComponent implements OnInit {
     );
   }
 
+ 
   // Calculate the total price of items in the basket
   getTotalPrice(): number {
     return this.basket?.Items.reduce((sum, item) => sum + item.Price * item.Quantity, 0) || 0;
   }
+ 
+
+  
+
+ 
+
 
   // Update the basket on the server
   updateBasket(): void {

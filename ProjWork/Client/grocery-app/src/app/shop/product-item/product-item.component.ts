@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IProduct } from '../../models/product.model';
-import { IBasket, IBasketItem, IBasketPost ,IPost} from '../../models/basket.model';
+import { IBasket, IBasketItem} from '../../models/basket.model';
 import { BasketService } from '../../basket/basket.service';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,8 @@ export class ProductItemComponent {
       this.router.navigate(['/login']);
       return;
     }
-    const newItem: IBasketPost = {
+    const newItem: IBasketItem = {
+      Id: product.Id,
       ProductName: product.Name,
       Price: product.Price,
       Quantity: 1,
@@ -34,7 +35,7 @@ export class ProductItemComponent {
     };
 
     // Create payload for the basket
-    const payload: IPost = {
+    const payload: IBasket = {
       Id: sessionStorage.getItem('email'), // Using email as basket ID
       Items: [newItem],
     };

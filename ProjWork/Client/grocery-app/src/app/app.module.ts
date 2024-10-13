@@ -12,8 +12,9 @@ import { ContactModule } from './contact/contact.module';
 import { BasketComponent } from './basket/basket.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token"); // This function retrieves the token from localStorage
@@ -25,6 +26,7 @@ export function tokenGetter() {
     BasketComponent,
     LoginComponent,
     SignupComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,8 +35,9 @@ export function tokenGetter() {
     CoreModule,
     ShopModule,
     HomeModule,
-    ContactModule,
+    ContactModule, 
     FormsModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

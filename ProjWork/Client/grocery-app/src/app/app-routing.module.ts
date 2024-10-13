@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './guards/auth.guards';
+import { CheckoutComponent } from './checkout/checkout.component';
 const routes: Routes = [
   {path:'',component:HomeComponent,data:{breadcrumb:'Home'}},
   {path:'shop',component:ShopComponent,data:{breadcrumb:'Shop'}},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'shop/:id',component:ProductDetailsComponent,data:{breadcrumb:{alias:'productDetails'}}},
   {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule),data:{breadcrumb:'Basket'}, canActivate: [AuthGuard]},
   {path:'contact',component:ContactComponent,data:{breadcrumb:'Contact'}},
+  {path:'checkout',component:CheckoutComponent,data:{breadcrumb:'Checkout'}},
   {path:'**',redirectTo:'',pathMatch:'full'}
 ];
 
