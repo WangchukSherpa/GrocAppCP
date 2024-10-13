@@ -53,4 +53,20 @@ export class NavBarComponent implements OnInit {
  
 
   }
+  isLoggedIn(): boolean {
+    
+    if(sessionStorage.getItem('email')) return true;
+    else return false;
+  }
+  getUserFirstName(): string {
+    const email = sessionStorage.getItem('email');
+    if (email) {
+      const name = email.split('@')[0]; // Split email at '@' and get the first part
+      //console.log(name);
+      return name; 
+    }
+    return ''; 
+  }
+
+ 
 }

@@ -11,9 +11,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        
         <div class="collapse navbar-collapse" id="navbarNav">
-    
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase" style="font-size: larger;">
                 <li class="nav-item">
                     <a class="nav-link" 
@@ -36,21 +34,24 @@
                 </li>
             </ul>
 
-            
             <div class="d-flex align-items-center">
-        
-<a href="/basket" class="position-relative m-3">
-    <i class="fa fa-shopping-cart fa-2x text-dark"></i>
-    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        {{ getCartItemCount() }}
-        <span class="visually-hidden">items in cart</span>
-    </span>
-</a>
+                <!-- Shopping Cart -->
+                <a href="/basket" class="position-relative m-3">
+                    <i class="fa fa-shopping-cart fa-2x text-dark"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ getCartItemCount() }}
+                        <span class="visually-hidden">items in cart</span>
+                    </span>
+                </a>
 
-            
-                <a class="btn btn-outline-success m-2" routerLink="/login">Login</a>
-                <a class="btn btn-outline-danger m-3" (click)="logout()">Logout</a>
-                <a class="btn btn-outline-warning m-3" routerLink="/signup">Sign up</a>
+                <!-- Display Welcome Message and Conditional Login/Logout Buttons -->
+                <span class="navbar-text m-3" *ngIf="isLoggedIn()">
+                    Welcome {{ getUserFirstName() }}!
+                </span>
+                
+                <a class="btn btn-outline-success m-2" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+                <a class="btn btn-outline-danger m-3" (click)="logout()" *ngIf="isLoggedIn()">Logout</a>
+                <a class="btn btn-outline-warning m-3" routerLink="/signup" *ngIf="!isLoggedIn()">Sign up</a>
             </div>
         </div>
     </div>

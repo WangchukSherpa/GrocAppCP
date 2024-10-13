@@ -15,6 +15,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token"); // This function retrieves the token from localStorage
@@ -27,6 +28,7 @@ export function tokenGetter() {
     LoginComponent,
     SignupComponent,
     CheckoutComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

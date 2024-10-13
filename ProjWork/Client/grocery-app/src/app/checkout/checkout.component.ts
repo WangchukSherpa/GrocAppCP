@@ -74,10 +74,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Form Submission Triggered')
     if (this.checkoutForm.invalid) {
       return;
     }
-    const email = sessionStorage.getItem('email'); // Assuming email is stored in session storage
+    const email = sessionStorage.getItem('email'); 
     if (!email) {
       console.error('No email found in session storage');
       return;
