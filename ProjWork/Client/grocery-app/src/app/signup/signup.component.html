@@ -49,6 +49,34 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" [(ngModel)]="signupData.Password" name="password" required />
           </div>
+          
+          <h5 class="card-title">Address Details</h5>
+
+          <div class="mb-3">
+            <label for="flatHouseNo" class="form-label">Flat/House No</label>
+            <input type="text" class="form-control" id="flatHouseNo" [(ngModel)]="signupData.Address.FlatHouseNo" name="flatHouseNo" required />
+          </div>
+          <div class="mb-3">
+            <label for="areaSector" class="form-label">Area/Sector</label>
+            <input type="text" class="form-control" id="areaSector" [(ngModel)]="signupData.Address.AreaSector" name="areaSector" required />
+          </div>
+          <div class="mb-3">
+            <label for="landMark" class="form-label">Landmark</label>
+            <input type="text" class="form-control" id="landMark" [(ngModel)]="signupData.Address.LandMark" name="landMark" required />
+          </div>
+          <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input type="number" class="form-control" id="pincode" [(ngModel)]="signupData.Address.Pincode" name="pincode" required />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" [(ngModel)]="signupData.Address.City" name="city" required />
+          </div>
+          <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" [(ngModel)]="signupData.Address.State" name="state" required />
+          </div>
+          
           <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
       </div>

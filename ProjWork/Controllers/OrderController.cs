@@ -23,17 +23,62 @@ namespace ProjWork.Controllers
             _orderServices = orderServices;
             _mapper = mapper;
         }
+        /* [HttpPost]
+         public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
+         {
+             var email = HttpContext.User.RetriveEmailFromPrinciple();
+             var address = _mapper.Map<AddressDto, Address>(orderDto.shiptoAddress);
+             var order=await _orderServices.CreateOrderAsync(email, orderDto.DeliveryMethodId,orderDto.BasketId,address);
+             if (order == null) {
+                 return BadRequest("Problem creating order");
+             }
+             return  Ok(order);
+         }*/
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
+        public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto, [FromQuery] bool useStoredAddress = false)
         {
             var email = HttpContext.User.RetriveEmailFromPrinciple();
-            var address = _mapper.Map<AddressDto, Address>(orderDto.shiptoAddress);
-            var order=await _orderServices.CreateOrderAsync(email, orderDto.DeliveryMethodId,orderDto.BasketId,address);
-            if (order == null) {
-                return BadRequest("Problem creating order");
+
+            Address address;
+            if (useStoredAddress)
+            {
+               
+                var storedAddress = await _orderServices.GetUserStoredAddressAsync(email);
+
+                if (storedAddress == null)
+                {
+                    return BadRequest("No stored address found for the user."); // Return an error if no address found
+                }
+
+                // Assign the fetched address to the address variable
+                address = storedAddress;
             }
-            return  Ok(order);
+            else
+            {
+                // If not using stored address, check if shiptoAddress is provided in the DTO
+                if (orderDto.shiptoAddress == null)
+                {
+                    return BadRequest("Please provide an address."); // Return an error if address not provided
+                }
+
+                // Map the provided shiptoAddress from the DTO to the Address entity
+                address = _mapper.Map<AddressDto, Address>(orderDto.shiptoAddress);
+            }
+
+            // Proceed with creating the order using the specified email, delivery method, basket ID, and address
+            var order = await _orderServices.CreateOrderAsync(email, orderDto.DeliveryMethodId, orderDto.BasketId, address);
+
+            // Check if the order creation was successful
+            if (order == null)
+            {
+                return BadRequest("Problem creating order"); // Return an error if order creation fails
+            }
+
+            // Return the created order
+            return Ok(order);
         }
+
+
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser() { 
             var email = HttpContext.User.RetriveEmailFromPrinciple();

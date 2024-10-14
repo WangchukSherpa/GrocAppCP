@@ -9,6 +9,7 @@ namespace ProjWork.Services
         Task<IReadOnlyList<Order>> GetOrderForUsersAsync(string buyerEmail);
         Task<Order> GetOrderByIdAsync(int id,string buyerEmail);
         Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync();
+        Task<Address> GetUserStoredAddressAsync(string email);
 
 
     }

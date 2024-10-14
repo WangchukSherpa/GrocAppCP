@@ -22,6 +22,10 @@ namespace ProjWork.Entities.User
         public string PhoneNum { get; set; }
         [Required]
         public string Password { get; set; }
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
+        
+
         [JsonIgnore]
         public ICollection<CustomersBasket> Baskets { get; set; } = new List<CustomersBasket>();
         [JsonIgnore]

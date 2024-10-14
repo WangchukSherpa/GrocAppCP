@@ -12,17 +12,35 @@ namespace ProjWork.Services
         private readonly IDeliveryMethodRepo _delRepo;
         private readonly IProductRepo _prRepo;
         private readonly IBasketRepo _basketRepo;
+        private readonly IUserRepository _userRepository;
 
         public OrderService(IOrderRepo orderRepo,
             IDeliveryMethodRepo delRepo,
             IProductRepo prRepo,
-            IBasketRepo basketRepo)
+            IBasketRepo basketRepo,
+            IUserRepository userRepository)
         {
             _orderRepo = orderRepo;
             _delRepo = delRepo;
             _prRepo = prRepo;
             _basketRepo = basketRepo;
+            _userRepository = userRepository;
         }
+        public async Task<Address> GetUserStoredAddressAsync(string email)
+        {
+            // Fetch the user by email from the user repository
+            var add = await _userRepository.GetUserStoredAddressAsync(email);
+
+            // If the user is found, return their stored address
+            if (add !=null)
+            {
+                return add;
+            }
+
+            // If no stored address is found, return null
+            return null;
+        }
+
 
         public async Task<Order> CreateOrderAsync(string buyerEmail, int delMId, string basketId, Address shippingAddress)
         {
