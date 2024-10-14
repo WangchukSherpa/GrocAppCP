@@ -5,6 +5,7 @@ using ProjWork.Data;
 using ProjWork.Helper;
 using ProjWork.Repo;
 using ProjWork.Repo.Interface;
+using ProjWork.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,17 @@ builder.Services.AddCors();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IOrderServices,OrderService>();
 builder.Services.AddScoped<ProductFilterHelper>();
 builder.Services.AddScoped<IBasketRepo, BasketRepo>();
+builder.Services.AddScoped<IPaymentService,PaymentService>();
+builder.Services.AddScoped<IDeliveryMethodRepo, DeliveryMethodRepo>();
+
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddSwaggerGen();
 
 // Remove this line as we're configuring authentication below

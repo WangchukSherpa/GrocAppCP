@@ -9,9 +9,21 @@
         <p class="text-success" style="font-size: 2em;">{{product.Price | currency:'INR'}}</p>
   
         <div class="d-flex justify-content-start align-items-center">
-          <i class=" btn fa fa-minus-circle text-warning mr-2" style="cursor:pointer; font-size: 2em;" (click)="decreaseQuantity()"></i>
-          <span class="font-weight-bold mx-2" style="font-size: 1.5em;">{{quantity}}</span>
-          <i class=" btn fa fa-plus-circle text-warning mx-2" style="cursor:pointer; font-size: 2em;" (click)="increaseQuantity()"></i>
+          <button class="btn btn-outline-warning shadow-sm mr-2 rounded-circle" 
+          style="cursor: pointer; font-size: 2em; padding: 0.4em 0.6em;" 
+          (click)="decreaseQuantity()">
+      <i class="fa fa-minus-circle"></i>
+  </button>
+  
+  <span class="font-weight-bold mx-2" style="font-size: 1.5em;">{{quantity}}</span>
+  
+  <button class="btn btn-outline-warning shadow-sm mx-2 rounded-circle" 
+          style="cursor: pointer; font-size: 2em; padding: 0.4em 0.6em;" 
+          (click)="increaseQuantity()">
+      <i class="fa fa-plus-circle"></i>
+  </button>
+  
+          
           <button class="btn btn-outline-secondary btn-lg ml-4" (click)="addToCart()">Add to Cart</button>
         </div>
   

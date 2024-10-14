@@ -86,46 +86,63 @@ namespace ProjWork.Repo
         //}
         public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
         {
-            // Fetch the existing basket from the database
-            var existingBasket = await _context.CustomersBaskets
-                .Include(b => b.Items) // Include the related items
-                .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
-
-            if (existingBasket == null)
+            try
             {
-                // If the basket doesn't exist, create a new one
-                _context.CustomersBaskets.Add(customersBasket);
-            }
-            else
-            {
+                // Fetch the existing basket from the database
+                Console.WriteLine($"Updating basket for user: {customersBasket.Id}");
 
-                foreach (var newItem in customersBasket.Items)
+                // Fetch the existing basket from the database
+                var existingBasket = await _context.CustomersBaskets
+                    .Include(b => b.Items)
+                    .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+
+                if (existingBasket == null)
                 {
-                    var existingItem = existingBasket.Items
-                        .SingleOrDefault(i => i.ProductName == newItem.ProductName);
-
-                    if (existingItem == null)
+                    Console.WriteLine($"Basket not found. Creating new basket for user: {customersBasket.Id}");
+                    // If the basket doesn't exist, create a new one
+                    _context.CustomersBaskets.Add(customersBasket);
+                    existingBasket = customersBasket;
+                }
+                else
+                {
+                    if (customersBasket.Items != null)
                     {
+                        foreach (var newItem in customersBasket.Items)
+                        {
+                            var existingItem = existingBasket.Items
+                                .SingleOrDefault(i => i.ProductName == newItem.ProductName);
 
-                        existingBasket.Items.Add(newItem);
-                    }
-                    else
-                    {
+                            if (existingItem == null)
+                            {
 
-                        existingItem.Quantity += newItem.Quantity;
-                        existingItem.Price = newItem.Price;
-                        existingItem.PictureUrl = newItem.PictureUrl;
-                        existingItem.Brand = newItem.Brand;
-                        existingItem.Type = newItem.Type;
+                                existingBasket.Items.Add(newItem);
+                            }
+                            else
+                            {
+
+                                existingItem.Quantity += newItem.Quantity;
+                                existingItem.Price = newItem.Price;
+                                existingItem.PictureUrl = newItem.PictureUrl;
+                                existingItem.Brand = newItem.Brand;
+                                existingItem.Type = newItem.Type;
+                            }
+                        }
                     }
                 }
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                // Return the updated basket
+                return await GetBasketAsync(customersBasket.Id);
             }
-
-            // Save changes to the database
-            await _context.SaveChangesAsync();
-
-            // Return the updated basket
-            return await GetBasketAsync(customersBasket.Id);
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error updating basket: {ex.Message}");
+                // You might want to throw a custom exception here
+                throw new Exception("Failed to update basket", ex);
+            }
         }
 
 

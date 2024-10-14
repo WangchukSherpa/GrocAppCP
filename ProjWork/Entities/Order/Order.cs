@@ -24,10 +24,7 @@
         public IReadOnlyList<OrderItem> OrderedItems { get; set; }
         public decimal SubTotal { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
-        public string PaymentId { get; set; }
-        public decimal getTotal()
-        {
-            return SubTotal + DeliveryMethod.Price;
-        }
+        public string? PaymentId { get; set; }
+        
     }
 }

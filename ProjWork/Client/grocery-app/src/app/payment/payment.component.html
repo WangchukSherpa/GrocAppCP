@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <!-- Order Review Section -->
+  <div class="mb-4">
+    <h2 class="text-primary mb-4"><i class="fas fa-shopping-cart"></i> Review Your Order</h2>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order?.OrderedItems">
+          <td>
+            <img [src]="item.PictureUrl" alt="{{item.ProductName}}" width="50" height="50" class="mr-2" />
+            {{item.ProductName}}
+          </td>
+          <td>{{item.Quantity}}</td>
+          <td>{{item.Price | currency:'INR'}}</td>
+          <td>{{item.Quantity * item.Price | currency:'INR'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="mb-4">
+    <h4 class="text-primary"><i class="fas fa-info-circle"></i> Order Summary</h4>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <td><strong>Delivery Method:</strong></td>
+          <td>{{order?.DeliveryMethod}}</td>
+        </tr>
+        <tr>
+          <td><strong>Shipping Price:</strong></td>
+          <td>{{order?.ShippingPrice | currency:'INR'}}</td>
+        </tr>
+        <tr>
+          <td><strong>Order Total:</strong></td>
+          <td class="text-primary">{{order?.Total | currency:'INR'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Payment Section -->
+  <div class="mt-5">
+    <h2 class="text-primary mb-4"><i class="fas fa-credit-card"></i> Enter Payment Details</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="cardName"><i class="fas fa-user"></i> Name on Card</label>
+        <input type="text" class="form-control" id="cardName" [(ngModel)]="paymentDetails.cardName" name="cardName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber"><i class="fas fa-credit-card"></i> Card Number</label>
+        <input type="text" class="form-control" id="cardNumber" [(ngModel)]="paymentDetails.cardNumber" name="cardNumber" required />
+      </div>
+
+      <div class="form-group">
+        <label for="cvv"><i class="fas fa-lock"></i> CVV</label>
+        <input type="text" class="form-control" id="cvv" [(ngModel)]="paymentDetails.cvv" name="cvv" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg mt-3">Pay Now</button>
+    </form>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+ 
+  .table {
+    border-collapse: separate;
+    border-spacing: 0 10px; 
+  }
+
+  .table th, .table td {
+    vertical-align: middle; 
+    padding: 15px; 
+  }
+
+  .table th {
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+  }
+
+  .table td {
+    border: 1px solid #dee2e6; 
+  }
+
+  .mt-3 h4 {
+    margin-bottom: 10px; 
+  }
+
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 15px; 
+    }
+  }
+</style>
