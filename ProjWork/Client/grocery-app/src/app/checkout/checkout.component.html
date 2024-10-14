@@ -7,7 +7,33 @@
           <h4 class="mb-0">Shipping Address</h4>
         </div>
         <div class="card-body">
-          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+          <!-- Saved Address Option -->
+          <div class="form-group mb-3">
+            <h5>Select Delivery Address:</h5>
+            <button (click)="useStoredAddress = true; checkoutForm.reset();" class="btn btn-outline-primary mb-2">Use Saved Address</button>
+          </div>
+
+          <!-- Delivery Method for Saved Address -->
+          <div *ngIf="useStoredAddress">
+            <h5>Delivery Method:</h5>
+            <div class="form-group mb-4">
+              <label for="savedDeliveryMethod">Select Delivery Method:</label>
+              <select class="form-control" formControlName="DeliveryMethodId" id="savedDeliveryMethod">
+                <option value="1">Free - Delivery within a week (₹0.00)</option>
+                <option value="2">DV1 - Delivery within 4 days (₹15.00)</option>
+                <option value="3">DV2 - Delivery within 2 days (₹30.00)</option>
+                <option value="4">DV3 - Delivery within 1 day (₹40.00)</option>
+                <option value="5">DV4 - Delivery within 12 hours (₹50.00)</option>
+              </select>
+            </div>
+            <div class="d-grid gap-2">
+              <button (click)="onProceedToPay()" class="btn btn-danger btn-lg">Proceed to Pay</button>
+            </div>
+          </div>
+
+          <!-- New Address Form -->
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" *ngIf="!useStoredAddress">
+            <h5>Enter New Address:</h5>
             <!-- Flat/House No -->
             <div class="form-group mb-3">
               <label for="FlatHouseNo">Flat/House No</label>
@@ -76,17 +102,17 @@
         </div>
       </div>
     </div>
-    <!-- Order Summary Card -->
+    
+    <!-- Sidebar for Order Summary -->
     <div class="col-md-4">
       <div class="card mb-4">
-        <div class="card-header bg-success text-white">
+        <div class="card-header bg-light">
           <h4 class="mb-0">Order Summary</h4>
         </div>
         <div class="card-body">
-          <p class="mb-2">Products Total: <strong>{{ getTotalPrice() | currency:'INR' }}</strong></p>
-          <p class="mb-2">Delivery Charges: <strong>{{ deliveryCharge | currency:'INR' }}</strong></p>
-          <hr />
-          <h4 class="mb-3">Order Total: <strong>{{ getOrderTotal() | currency:'INR' }}</strong></h4>
+          <p>Total Price: ₹{{ getTotalPrice() }}</p>
+          <p>Delivery Charge: ₹{{ deliveryCharge }}</p>
+          <h5>Order Total: ₹{{ getOrderTotal() }}</h5>
         </div>
       </div>
     </div>
