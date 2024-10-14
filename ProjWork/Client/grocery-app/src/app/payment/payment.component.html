@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <!-- Order Review Section -->
   <div class="mb-4">
-    <h2 class="text-primary mb-4"><i class="fas fa-shopping-cart"></i> Review Your Order</h2>
+    <h2 class="text-success mb-4"><i class="fas fa-shopping-cart"></i> Review Your Order</h2>
     <table class="table table-bordered table-striped">
       <thead class="thead-light">
         <tr>
@@ -27,7 +27,7 @@
 
   <!-- Summary Section -->
   <div class="mb-4">
-    <h4 class="text-primary"><i class="fas fa-info-circle"></i> Order Summary</h4>
+    <h4 class="text-success"><i class="fas fa-info-circle"></i> Order Summary</h4>
     <table class="table table-bordered">
       <tbody>
         <tr>
@@ -40,7 +40,7 @@
         </tr>
         <tr>
           <td><strong>Order Total:</strong></td>
-          <td class="text-primary">{{order?.Total | currency:'INR'}}</td>
+          <td class="text-success">{{order?.Total | currency:'INR'}}</td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +48,7 @@
 
   <!-- Payment Section -->
   <div class="mt-5">
-    <h2 class="text-primary mb-4"><i class="fas fa-credit-card"></i> Enter Payment Details</h2>
+    <h2 class="text-success mb-4"><i class="fas fa-credit-card"></i> Enter Payment Details</h2>
     <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="cardName"><i class="fas fa-user"></i> Name on Card</label>
@@ -65,7 +65,7 @@
         <input type="text" class="form-control" id="cvv" [(ngModel)]="paymentDetails.cvv" name="cvv" required />
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg mt-3">Pay Now</button>
+      <button type="submit" class="btn btn-success btn-lg mt-3">Pay Now</button>
     </form>
   </div>
 </div>

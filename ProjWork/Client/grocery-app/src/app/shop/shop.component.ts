@@ -9,7 +9,7 @@ import { ElementRef } from '@angular/core';
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('searchTerm', { static: true }) searchTerm: ElementRef;
+
 
   // Data related to products, brands, and types
   products: IProduct[] = [];
@@ -108,16 +108,5 @@ export class ShopComponent implements OnInit {
     this.getProducts();
   }
 
-  // Handle search input
-  onSearch() {
-    this.search = this.searchTerm.nativeElement.value;
-    this.getProducts();
-  }
-
-  // Reset the search
-  onReset() {
-    this.searchTerm.nativeElement.value = '';
-    this.search = '';
-    this.getProducts();
-  }
+ 
 }

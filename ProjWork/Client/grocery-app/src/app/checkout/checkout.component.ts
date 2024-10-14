@@ -16,7 +16,8 @@ export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
   deliveryCharge: number = 0;
   useStoredAddress: boolean = false; // New variable to manage address selection
-
+  savedAddress: any;
+  orderPlaced = false;
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
@@ -101,8 +102,8 @@ export class CheckoutComponent implements OnInit {
     });
   }
   onProceedToPay() {
+    const email = sessionStorage.getItem('email'); 
     if (this.useStoredAddress) {
-      const email = sessionStorage.getItem('email'); 
       // Call your service to proceed to payment using saved address
       this.checkoutService.placeOrder({
         BasketId: email,
@@ -110,7 +111,13 @@ export class CheckoutComponent implements OnInit {
         shiptoAddress: null
       },this.useStoredAddress).subscribe(response => {
         console.log('Order placed successfully', response);
-        // Redirect to payment page or show success message
+      
+        this.savedAddress = response.ShipToAddress; // Store the saved address details
+        this.orderPlaced = true; // Set order placed flag
+        // Optional: You can set a timeout before redirecting to the payment page
+        setTimeout(() => {
+          this.router.navigate(['/payment']); // Redirect to payment page after delay
+        }, 3000); // Redirect after 3 seconds, adjust as needed
       }, error => {
         console.error('Error placing order', error);
       });

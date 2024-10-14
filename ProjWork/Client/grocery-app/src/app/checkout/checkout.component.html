@@ -3,7 +3,7 @@
     <!-- Checkout Form -->
     <div class="col-md-8">
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-success text-white">
           <h4 class="mb-0">Shipping Address</h4>
         </div>
         <div class="card-body">
@@ -27,7 +27,7 @@
               </select>
             </div>
             <div class="d-grid gap-2">
-              <button (click)="onProceedToPay()" class="btn btn-danger btn-lg">Proceed to Pay</button>
+              <button (click)="onProceedToPay()" class="btn btn-success btn-lg">Proceed to Pay</button>
             </div>
           </div>
 
@@ -38,7 +38,7 @@
             <div class="form-group mb-3">
               <label for="FlatHouseNo">Flat/House No</label>
               <input type="text" class="form-control" formControlName="FlatHouseNo" placeholder="Enter Flat/House No" />
-              <div *ngIf="checkoutForm.get('FlatHouseNo')?.invalid && checkoutForm.get('FlatHouseNo')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('FlatHouseNo')?.invalid && checkoutForm.get('FlatHouseNo')?.touched" class="text-success">
                 Flat/House No is required
               </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="form-group mb-3">
               <label for="AreaSector">Area/Sector</label>
               <input type="text" class="form-control" formControlName="AreaSector" placeholder="Enter Area/Sector" />
-              <div *ngIf="checkoutForm.get('AreaSector')?.invalid && checkoutForm.get('AreaSector')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('AreaSector')?.invalid && checkoutForm.get('AreaSector')?.touched" class="text-success">
                 Area/Sector is required
               </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="form-group mb-3">
               <label for="LandMark">Landmark</label>
               <input type="text" class="form-control" formControlName="LandMark" placeholder="Enter Landmark" />
-              <div *ngIf="checkoutForm.get('LandMark')?.invalid && checkoutForm.get('LandMark')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('LandMark')?.invalid && checkoutForm.get('LandMark')?.touched" class="text-success">
                 Landmark is required
               </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="form-group mb-3">
               <label for="Pincode">Pincode</label>
               <input type="text" class="form-control" formControlName="Pincode" placeholder="Enter Pincode" />
-              <div *ngIf="checkoutForm.get('Pincode')?.invalid && checkoutForm.get('Pincode')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('Pincode')?.invalid && checkoutForm.get('Pincode')?.touched" class="text-success">
                 Valid Pincode is required (6 digits)
               </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="form-group mb-3">
               <label for="City">City</label>
               <input type="text" class="form-control" formControlName="City" placeholder="Enter City" />
-              <div *ngIf="checkoutForm.get('City')?.invalid && checkoutForm.get('City')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('City')?.invalid && checkoutForm.get('City')?.touched" class="text-success">
                 City is required
               </div>
             </div>
@@ -78,7 +78,7 @@
             <div class="form-group mb-4">
               <label for="State">State</label>
               <input type="text" class="form-control" formControlName="State" placeholder="Enter State" />
-              <div *ngIf="checkoutForm.get('State')?.invalid && checkoutForm.get('State')?.touched" class="text-danger">
+              <div *ngIf="checkoutForm.get('State')?.invalid && checkoutForm.get('State')?.touched" class="text-success">
                 State is required
               </div>
             </div>
@@ -96,13 +96,28 @@
             </div>
             <!-- Submit Button -->
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-danger btn-lg" [disabled]="checkoutForm.invalid">Proceed to Pay</button>
+              <button type="submit" class="btn btn-success btn-lg" [disabled]="checkoutForm.invalid">Proceed to Pay</button>
             </div>
           </form>
+
+          <!-- Display Order Confirmation Card -->
+          <div *ngIf="orderPlaced" class="mt-4">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">Order Placed Successfully!</div>
+              <div class="card-body">
+                <h5 class="card-title">Order Placed to This Address:</h5>
+                <p class="card-text"><strong>Flat/House No:</strong> {{ savedAddress.FlatHouseNo }}</p>
+                <p class="card-text"><strong>Area/Sector:</strong> {{ savedAddress.AreaSector }}</p>
+                <p class="card-text"><strong>Landmark:</strong> {{ savedAddress.LandMark }}</p>
+                <p class="card-text"><strong>Pincode:</strong> {{ savedAddress.Pincode }}</p>
+                <p class="card-text"><strong>City:</strong> {{ savedAddress.City }}</p>
+                <p class="card-text"><strong>State:</strong> {{ savedAddress.State }}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
     <!-- Sidebar for Order Summary -->
     <div class="col-md-4">
       <div class="card mb-4">
