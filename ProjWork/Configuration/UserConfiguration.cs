@@ -11,8 +11,11 @@ namespace ProjWork.Configuration
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.HasIndex(x=>x.Email).IsUnique();
+            builder.HasOne(u => u.Address)
+               .WithMany()   // Address does not have a collection of Users
+               .HasForeignKey(u => u.AddressId)  // Foreign key in User pointing to Address
+               .OnDelete(DeleteBehavior.Cascade);
 
-            
         }
     }
 }

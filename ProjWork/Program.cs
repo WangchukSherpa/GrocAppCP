@@ -17,12 +17,15 @@ builder.Services.AddCors();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IOrderServices,OrderService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ProductFilterHelper>();
 builder.Services.AddScoped<IBasketRepo, BasketRepo>();
 builder.Services.AddScoped<IPaymentService,PaymentService>();
 builder.Services.AddScoped<IDeliveryMethodRepo, DeliveryMethodRepo>();
+
 
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 
