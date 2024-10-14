@@ -2,7 +2,7 @@
     <div class="container-fluid px-4">
         <!-- Logo -->
         <a class="navbar-brand" routerLink="/">
-            <img src="assets/images/logo.png" alt="logo" class="logo" style="max-height: 80px;">
+            <img src="assets/images/logo.svg" alt="logo" class="logo" style="max-height: 80px;">
         </a>
 
         <!-- Navbar toggle for mobile view -->
@@ -45,7 +45,7 @@
                 </a>
 
                 <!-- Display Welcome Message and Conditional Login/Logout Buttons -->
-                <span class="navbar-text m-3" *ngIf="isLoggedIn()">
+                <span class="navbar-text m-3" *ngIf="isLoggedIn()" style="color: green;">
                     Welcome {{ getUserFirstName() }}!
                 </span>
                 

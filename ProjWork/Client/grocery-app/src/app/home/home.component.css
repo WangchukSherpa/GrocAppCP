@@ -1,4 +1,27 @@
-.carousel-img {
-    height: 400px; /* Set a standard height */
-    object-fit: cover; /* Maintain the aspect ratio */
-}
+.custom-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+  }
+  
+  .full-width-image {
+    width: 100%; /* Ensures home0.svg stretches across the full width */
+    height: auto; /* Maintains aspect ratio */
+    margin-bottom: 30px; /* Adds spacing below the image */
+  }
+  
+  /* Targeting home2.svg specifically */
+  .custom-image[src="assets/images/home2.svg"] {
+    max-width: 500px;  /* Custom width */
+    max-height: 300px; /* Custom height */
+    height: auto;      /* Maintain aspect ratio */
+    margin: 0 auto;    /* Center-align image */
+  }
+  
+  @media (min-width: 992px) {
+    .custom-image[src="assets/images/home2.svg"] {
+      max-width: 450px;  /* Slightly smaller width for large screens */
+      max-height: 270px; /* Maintain height proportion */
+    }
+  }
+  
