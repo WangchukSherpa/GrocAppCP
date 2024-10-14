@@ -25,7 +25,7 @@ export class SignupComponent {
             // Redirect to the login page after successful registration
             this.router.navigate(['/login']);
           } else {
-            // Handle unexpected response
+            
             alert('Unexpected response: ' + response);
           }
         },
