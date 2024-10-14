@@ -39,8 +39,13 @@ export class ProductDetailsComponent implements OnInit {
 
   increaseQuantity(): void {
     //console.log('Increase button Pressed');
+    if(this.quantity>=10){
+      alert('Product Out of Stock');
+    }
+    else{
         this.quantity += 1;
-  }
+    }}
+
 
   decreaseQuantity(): void {
     //console.log('Decrease button Pressed');
