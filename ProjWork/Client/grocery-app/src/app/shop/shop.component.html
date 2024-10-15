@@ -49,8 +49,8 @@
             </div>
 
             <!-- Popular Types Section -->
-            <div class="mb-4">
-                <h5 class="text-success">Popular Types</h5>
+            <div    *ngIf="currentPage === 1"  class="mb-4"  >
+                <h5 class="text-success"  >Popular Types</h5>
                 <div class="product-types-container">
                     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
                         <div class="col mb-3" *ngFor="let type of types">
