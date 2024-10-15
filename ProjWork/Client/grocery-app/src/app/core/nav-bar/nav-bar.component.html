@@ -49,12 +49,20 @@
                     Welcome {{ getUserFirstName() }}!
                 </span>
                 
-                <a class="btn btn-outline-warning m-3" routerLink="/signup" *ngIf="!isLoggedIn()">Sign up</a>
-                <a class="btn btn-outline-danger m-3" (click)="logout()" *ngIf="isLoggedIn()">Logout</a>
-                <a class="btn btn-outline-success m-3" routerLink="/my-orders" *ngIf="isLoggedIn()">
-                    <i class="fa fa-list-alt"></i> My Orders
-                </a>
-                <a class="btn btn-outline-success m-2" routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+                <div class="nav-buttons">
+  <a class="btn btn-custom btn-signup" routerLink="/signup" *ngIf="!isLoggedIn()">
+    <i class="fas fa-user-plus"></i> Sign up
+  </a>
+  <a class="btn btn-custom btn-logout" (click)="logout()" *ngIf="isLoggedIn()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </a>
+  <a class="btn btn-custom btn-orders" routerLink="/my-orders" *ngIf="isLoggedIn()">
+    <i class="fas fa-list-alt"></i> My Orders
+  </a>
+  <a class="btn btn-custom btn-login" routerLink="/login" *ngIf="!isLoggedIn()">
+    <i class="fas fa-sign-in-alt"></i> Login
+  </a>
+</div>
             </div>
         </div>
     </div>
