@@ -1,40 +1,54 @@
-/* General Styles */
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 30px;
-    background-color: #f5f5f5;
+/* SVG Styling */
+.svg-container {
+    margin-bottom: 20px; /* Overall container margin */
+}
+
+.icon-wrapper {
+    text-align: center;
+    margin-bottom: 0; /* No bottom margin to prevent gaps between SVGs */
+    padding-bottom: 0; /* Ensure no padding between SVGs */
+}
+
+.svg-icon {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    object-fit: contain;
+}
+
+/* Remove margin only between first and second SVG */
+.svg-container .row:first-child .icon-wrapper {
+    margin-bottom: 0 !important; /* Force no margin after first image */
+}
+
+.icon-wrapper p {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 5px; /* Reduced space between image and text */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 10px 20px;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    color: #333;
-    font-weight: bold;
+/* Get In Touch Box Styling */
+.get-in-touch-box {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border: 1px solid #e0e0e0;
 }
 
-
-/* Contact Info Styles */
 .contact-info h5 {
-    color: #007bff;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.contact-info p {
-    color: #555;
-    font-size: 1rem;
-}
-
-.social-icons {
+    font-weight: 600;
     margin-top: 20px;
 }
 
 .social-icons a {
-    font-size: 24px;
-    color: #555;
     margin-right: 15px;
-    transition: color 0.3s;
+    font-size: 20px;
+    color: #333;
 }
 
 .social-icons a:hover {
