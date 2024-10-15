@@ -31,7 +31,7 @@ namespace ProjWork.Controllers
             }
 
             basket.DeliveryMethodId = deliveryMethodUpdate.DeliveryMethodId;
-            basket.DeliveryMethod = deliveryMethodUpdate.DeliveryMethod;
+     
 
             await _basketRepo.UpdateBasketAsync(basket);
 

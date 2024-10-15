@@ -21,7 +21,7 @@ namespace ProjWork.Entities.Basket
         [ConcurrencyCheck]
         public DateTime LastModified { get; set; } = DateTime.UtcNow;
         public int? DeliveryMethodId {  get; set; }
-        public DeliveryMethod DeliveryMethod { get; set; }
+      
         public string? ClientSecret { get; set; }
         public string? PaymentId { get; set; }
 

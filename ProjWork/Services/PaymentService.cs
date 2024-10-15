@@ -46,33 +46,33 @@ namespace ProjWork.Services
 
             // Calculate shipping price if delivery method is selected
             var shippingPrice = 0m;
-            /*if (basket.DeliveryMethodId.HasValue)*/
-            /*  if (basket.DeliveryMethod!=null)
-              {
-                  var delMethod = await _delRepo.GetByIdDeliveryAsync((int)basket.DeliveryMethod.Id);
-                  if (delMethod != null)
-                  {
-                      shippingPrice = delMethod.Price;
-                  }
-                  else
-                  {
-                      throw new Exception("Delivery method not found.");
-                  }
-              }*/
-            if (basket.DeliveryMethod != null)
-            {
-                var delMethod = await _delRepo.GetByIdDeliveryAsync(basket.DeliveryMethod.Id);
-                if (delMethod != null)
+            if (basket.DeliveryMethodId.HasValue)
+              
                 {
-                    shippingPrice = delMethod.Price;
-                    basket.DeliveryMethodId = delMethod.Id;
-                    basket.DeliveryMethod = delMethod;
+                    var delMethod = await _delRepo.GetByIdDeliveryAsync((int)basket.DeliveryMethodId);
+                    if (delMethod != null)
+                    {
+                        shippingPrice = delMethod.Price;
+                    }
+                    else
+                    {
+                        throw new Exception("Delivery method not found.");
+                    }
                 }
-                else
-                {
-                    throw new Exception("Delivery method not found.");
-                }
-            }
+            /*   if (basket.DeliveryMethod != null)
+               {
+                   var delMethod = await _delRepo.GetByIdDeliveryAsync(basket.DeliveryMethod.Id);
+                   if (delMethod != null)
+                   {
+                       shippingPrice = delMethod.Price;
+                       basket.DeliveryMethodId = delMethod.Id;
+                       basket.DeliveryMethod = delMethod;
+                   }
+                   else
+                   {
+                       throw new Exception("Delivery method not found.");
+                   }
+               }*/
             // Validate product prices in the basket
             foreach (var item in basket.Items)
             {
