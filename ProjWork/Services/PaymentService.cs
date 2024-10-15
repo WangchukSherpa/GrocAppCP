@@ -2,6 +2,9 @@
 using ProjWork.Entities.Basket;
 using ProjWork.Repo.Interface;
 using Stripe;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjWork.Services
 {
@@ -25,16 +28,12 @@ namespace ProjWork.Services
 
         public async Task<CustomersBasket> CreateOrUpdatePayment(string basketId)
         {
-            // Retrieve and check Stripe API key
-            var stripeApiKey = "sk_test_51Q93OaKpfiqounxCQrsmj4jiVH8kGB4TXLCIOrvpWAEYpmULjf3qF2sJPetU7PzvOfodVlSiAbVnqi16cR55FxFK000i7ikT8F";
-           /* var stripeApiKey = _config["StripeSettings.SecretKey"];*/
+            // Retrieve and check Stripe API key from configuration (using a hardcoded key for now)
+            var stripeApiKey = _config["StripeSettings:SecretKey"];
             if (string.IsNullOrEmpty(stripeApiKey))
             {
                 throw new Exception("Stripe API key is not configured.");
             }
-            Console.WriteLine(stripeApiKey);
-
-            // Set the Stripe API key
             StripeConfiguration.ApiKey = stripeApiKey;
 
             // Get the customer's basket
@@ -44,7 +43,7 @@ namespace ProjWork.Services
                 throw new Exception("Basket is empty or not found.");
             }
 
-            // Calculate shipping price if delivery method is selected
+            // Calculate shipping price based on selected delivery method
             var shippingPrice = 0m;
             if (basket.DeliveryMethodId.HasValue)
             {
@@ -59,7 +58,7 @@ namespace ProjWork.Services
                 }
             }
 
-            // Validate product prices in the basket
+            // Validate and update product prices
             foreach (var item in basket.Items)
             {
                 var productItem = await _prodRepo.GetProductByIdAsync(item.Id);
@@ -68,23 +67,23 @@ namespace ProjWork.Services
                     throw new Exception($"Product with ID {item.Id} not found.");
                 }
 
+                // Ensure the price is up-to-date
                 if (item.Price != productItem.Price)
                 {
                     item.Price = productItem.Price;
                 }
             }
 
-            // Initialize PaymentIntent service
+            // Create or update the PaymentIntent
             var service = new PaymentIntentService();
             PaymentIntent intent;
 
+            // If no payment exists, create one
             if (string.IsNullOrEmpty(basket.PaymentId))
             {
-                // Create new payment intent
                 var options = new PaymentIntentCreateOptions
                 {
-                    Amount = (long)basket.Items.Sum(i => i.Quantity * (i.Price * 100)) +
-                             (long)shippingPrice * 100,
+                    Amount = CalculateTotalAmount(basket, shippingPrice),
                     Currency = "inr",
                     PaymentMethodTypes = new List<string> { "card" }
                 };
@@ -95,19 +94,27 @@ namespace ProjWork.Services
             }
             else
             {
-                // Update existing payment intent
+                // Update the existing payment intent
                 var options = new PaymentIntentUpdateOptions
                 {
-                    Amount = (long)basket.Items.Sum(i => i.Quantity * (i.Price * 100)) +
-                             (long)shippingPrice * 100
+                    Amount = CalculateTotalAmount(basket, shippingPrice)
                 };
 
                 await service.UpdateAsync(basket.PaymentId, options);
             }
 
-            // Update the basket in the repository
+            // Update the basket with the payment information
             await _basketRepo.UpdateBasketAsync(basket);
             return basket;
+        }
+
+        // Helper function to calculate the total payment amount including shipping
+        private long CalculateTotalAmount(CustomersBasket basket, decimal shippingPrice)
+        {
+            // Calculate total by summing up product prices and quantities, plus shipping cost
+            var itemsTotal = basket.Items.Sum(i => i.Quantity * (i.Price * 100));
+            var totalAmount = (long)(itemsTotal + (shippingPrice * 100)); // Stripe expects amounts in cents
+            return totalAmount;
         }
     }
 }

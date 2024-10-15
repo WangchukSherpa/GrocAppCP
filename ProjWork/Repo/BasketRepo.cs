@@ -128,6 +128,8 @@ namespace ProjWork.Repo
                             }
                         }
                     }
+                    existingBasket.DeliveryMethodId = customersBasket.DeliveryMethodId;
+                  
                 }
 
                 // Save changes to the database
