@@ -1,19 +1,49 @@
 <div class="container d-flex justify-content-center mt-5">
-  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-      <h3 class="text-center mb-4">Login</h3>
-      <form (ngSubmit)="onLogin()">
-          <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" [(ngModel)]="loginData.Email" name="email" placeholder="Enter your email" required />
-          </div>
-          <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" [(ngModel)]="loginData.Password" name="password" placeholder="Enter your password" required />
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-      </form>
-      <div class="mt-3 text-center">
-          <a routerLink="/signup" class="text-secondary">New User? SignUp Now !!</a>
-      </div>
+    <div class="card border-success shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h3 class="text-center mb-4 card-title">Login</h3>
+        <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control border border-success" id="email" [(ngModel)]="loginData.Email" name="email" placeholder="Enter your email" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control border border-success" id="password" [(ngModel)]="loginData.Password" name="password" placeholder="Enter your password" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Login</button>
+        </form>
+        <div class="mt-3 text-center">
+            <a routerLink="/signup" class="text-secondary">New User? Sign Up Now!</a>
+        </div>
+    </div>
   </div>
-</div>
+  
+  <!-- Include this CSS to enhance the form styles -->
+  <style>
+    .card {
+      border-radius: 10px; /* Rounded corners for the card */
+    }
+    .card-title {
+      font-weight: bold; /* Bold card titles */
+      color: #333; /* Dark color for titles */
+    }
+    .form-label {
+      font-weight: 500; /* Medium weight for labels */
+    }
+    .btn-primary {
+      width: 100%; /* Full-width button */
+      padding: 10px; /* Increased padding for better touch area */
+    }
+    .form-control {
+      transition: border-color 0.3s; /* Smooth border color transition */
+    }
+    .form-control:focus {
+      border-color: #28a745; /* Green border on focus */
+      box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Soft shadow effect */
+    }
+  </style>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
+  
