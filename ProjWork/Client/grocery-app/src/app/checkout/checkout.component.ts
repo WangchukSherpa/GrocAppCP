@@ -15,7 +15,9 @@ export class CheckoutComponent implements OnInit {
   basket: IBasket;
   checkoutForm: FormGroup;
   deliveryCharge: number = 0;
-
+  useStoredAddress: boolean = false; // New variable to manage address selection
+  savedAddress: any;
+  orderPlaced = false;
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
@@ -37,27 +39,22 @@ export class CheckoutComponent implements OnInit {
 
     // Listen for changes to DeliveryMethodId
     this.checkoutForm.get('DeliveryMethodId')?.valueChanges.subscribe(value => {
-      console.log("Delivery Method ID changed to:", value); // Debug log
       this.updateDeliveryCharge(value);
     });
   }
 
   updateDeliveryCharge(selectedMethod: number): void {
-    console.log("Updating delivery charge based on method:", selectedMethod); // Debug log
-  
-    if(selectedMethod==1) this.deliveryCharge=0;
-   else if(selectedMethod==2) this.deliveryCharge=15;
-   else if(selectedMethod==3) this.deliveryCharge=30;
-   else if(selectedMethod==4) this.deliveryCharge=40;
-   else if(selectedMethod==5) this.deliveryCharge=50;
-    console.log("Updated Delivery Charge:", this.deliveryCharge); // Debug log
+    if(selectedMethod === 1) this.deliveryCharge = 0;
+    else if(selectedMethod === 2) this.deliveryCharge = 15;
+    else if(selectedMethod === 3) this.deliveryCharge = 30;
+    else if(selectedMethod === 4) this.deliveryCharge = 40;
+    else if(selectedMethod === 5) this.deliveryCharge = 50;
   }
 
   loadBasket(): void {
     this.basketService.getBasket().subscribe(
       (response) => {
         this.basket = response;
-        console.log('Loaded basket:', this.basket);
       },
       (error) => {
         console.error('Error loading basket:', error);
@@ -74,8 +71,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Form Submission Triggered')
-
     if (this.checkoutForm.invalid) {
       return;
     }
@@ -88,7 +83,7 @@ export class CheckoutComponent implements OnInit {
     const checkoutData: Checkout = {
       BasketId: email,
       DeliveryMethodId: this.checkoutForm.get('DeliveryMethodId')?.value,
-      shiptoAddress: {
+      shiptoAddress: this.useStoredAddress ? null : {
         FlatHouseNo: this.checkoutForm.get('FlatHouseNo')?.value,
         AreaSector: this.checkoutForm.get('AreaSector')?.value,
         LandMark: this.checkoutForm.get('LandMark')?.value,
@@ -98,13 +93,34 @@ export class CheckoutComponent implements OnInit {
       }
     };
 
-    this.checkoutService.placeOrder(checkoutData).subscribe({
+    this.checkoutService.placeOrder(checkoutData, this.useStoredAddress).subscribe({
       next: (response) => {
         console.log('Order placed successfully', response);
         this.router.navigate(['/payment']);
-    
       },
       error: (err) => console.error('Order placement failed', err)
     });
+  }
+  onProceedToPay() {
+    const email = sessionStorage.getItem('email'); 
+    if (this.useStoredAddress) {
+      // Call your service to proceed to payment using saved address
+      this.checkoutService.placeOrder({
+        BasketId: email,
+        DeliveryMethodId: this.checkoutForm.value.DeliveryMethodId || 1, // Default to the first method if not set
+        shiptoAddress: null
+      },this.useStoredAddress).subscribe(response => {
+        console.log('Order placed successfully', response);
+      
+        this.savedAddress = response.ShipToAddress; // Store the saved address details
+        this.orderPlaced = true; // Set order placed flag
+        // Optional: You can set a timeout before redirecting to the payment page
+        setTimeout(() => {
+          this.router.navigate(['/payment']); // Redirect to payment page after delay
+        }, 3000); // Redirect after 3 seconds, adjust as needed
+      }, error => {
+        console.error('Error placing order', error);
+      });
+    }
   }
 }

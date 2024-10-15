@@ -1,0 +1,28 @@
+.table {
+    border-collapse: collapse; /* Remove space between cells */
+}
+
+.table th,
+.table td {
+    border: none; /* Remove borders */
+    padding: 12px; /* Add some padding */
+}
+
+.table th {
+    text-align: left; /* Align header text to the left */
+    font-weight: normal; /* Make header text bold */
+}
+
+.card-header {
+    background-color: transparent; /* Remove background color */
+    border-bottom: 1px solid #eaeaea; /* Subtle border for separation */
+}
+
+.card {
+    margin-bottom: 20px; /* Add space between cards */
+}
+
+.btn-danger {
+    background-color: tomato; /* Keep button color */
+    border: none; /* Remove button border */
+}
