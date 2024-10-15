@@ -38,6 +38,7 @@ namespace ProjWork.Repo
         {
             return await _context.CustomersBaskets
                    .Include(b => b.Items)
+                   .Include(b => b.DeliveryMethod)
                    .FirstOrDefaultAsync(b => b.Id == basketId);
         }
 
@@ -128,6 +129,8 @@ namespace ProjWork.Repo
                             }
                         }
                     }
+                    existingBasket.DeliveryMethodId = customersBasket.DeliveryMethodId;
+                    existingBasket.DeliveryMethod = customersBasket.DeliveryMethod;
                 }
 
                 // Save changes to the database
