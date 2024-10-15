@@ -1,58 +1,99 @@
 <div class="container mt-5">
-  <div class="card">
+  <div class="card border-success">
     <div class="card-body">
-      <h5 class="card-title">Sign Up</h5>
+      <h5 class="text-center card-title">Register</h5>
       <form (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label for="firstName" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="firstName" [(ngModel)]="signupData.FirstName" name="firstName" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control border border-success" id="firstName" [(ngModel)]="signupData.FirstName" name="firstName" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control border border-success" id="lastName" [(ngModel)]="signupData.LastName" name="lastName" required />
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="lastName" class="form-label">Last Name</label>
-          <input type="text" class="form-control" id="lastName" [(ngModel)]="signupData.LastName" name="lastName" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control border border-success" id="email" [(ngModel)]="signupData.Email" name="email" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phoneNum" class="form-label">Phone Number</label>
+            <input type="text" class="form-control border border-success" id="phoneNum" [(ngModel)]="signupData.PhoneNum" name="phoneNum" required />
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="signupData.Email" name="email" required />
-        </div>
-        <div class="mb-3">
-          <label for="phoneNum" class="form-label">Phone Number</label>
-          <input type="text" class="form-control" id="phoneNum" [(ngModel)]="signupData.PhoneNum" name="phoneNum" required />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" [(ngModel)]="signupData.Password" name="password" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control border border-success" id="password" [(ngModel)]="signupData.Password" name="password" required />
+          </div>
         </div>
         
-        <h5 class="card-title">Address Details</h5>
+        <h5 class="card-title mt-4">Address Details</h5>
 
-        <div class="mb-3">
-          <label for="flatHouseNo" class="form-label">Flat/House No</label>
-          <input type="text" class="form-control" id="flatHouseNo" [(ngModel)]="signupData.Address.FlatHouseNo" name="flatHouseNo" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="flatHouseNo" class="form-label">Flat/House No</label>
+            <input type="text" class="form-control border border-success" id="flatHouseNo" [(ngModel)]="signupData.Address.FlatHouseNo" name="flatHouseNo" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="areaSector" class="form-label">Area/Sector</label>
+            <input type="text" class="form-control border border-success" id="areaSector" [(ngModel)]="signupData.Address.AreaSector" name="areaSector" required />
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="areaSector" class="form-label">Area/Sector</label>
-          <input type="text" class="form-control" id="areaSector" [(ngModel)]="signupData.Address.AreaSector" name="areaSector" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="landMark" class="form-label">Landmark</label>
+            <input type="text" class="form-control border border-success" id="landMark" [(ngModel)]="signupData.Address.LandMark" name="landMark" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input type="number" class="form-control border border-success" id="pincode" [(ngModel)]="signupData.Address.Pincode" name="pincode" required />
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="landMark" class="form-label">Landmark</label>
-          <input type="text" class="form-control" id="landMark" [(ngModel)]="signupData.Address.LandMark" name="landMark" required />
-        </div>
-        <div class="mb-3">
-          <label for="pincode" class="form-label">Pincode</label>
-          <input type="number" class="form-control" id="pincode" [(ngModel)]="signupData.Address.Pincode" name="pincode" required />
-        </div>
-        <div class="mb-3">
-          <label for="city" class="form-label">City</label>
-          <input type="text" class="form-control" id="city" [(ngModel)]="signupData.Address.City" name="city" required />
-        </div>
-        <div class="mb-3">
-          <label for="state" class="form-label">State</label>
-          <input type="text" class="form-control" id="state" [(ngModel)]="signupData.Address.State" name="state" required />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control border border-success" id="city" [(ngModel)]="signupData.Address.City" name="city" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control border border-success" id="state" [(ngModel)]="signupData.Address.State" name="state" required />
+          </div>
         </div>
         
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-success w-100">Sign Up</button>
       </form>
     </div>
   </div>
 </div>
+
+<!-- Include this CSS to enhance the form styles -->
+<style>
+  .card {
+    border-radius: 10px; /* Rounded corners for the card */
+  }
+  .card-title {
+    font-weight: bold; /* Bold card titles */
+    color: #333; /* Dark color for titles */
+  }
+  .form-label {
+    font-weight: 500; /* Medium weight for labels */
+  }
+  .btn-primary {
+    width: 100%; /* Full-width button */
+    padding: 10px; /* Increased padding for better touch area */
+  }
+  .form-control {
+    transition: border-color 0.3s; /* Smooth border color transition */
+  }
+  .form-control:focus {
+    border-color: #28a745; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Soft shadow effect */
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
