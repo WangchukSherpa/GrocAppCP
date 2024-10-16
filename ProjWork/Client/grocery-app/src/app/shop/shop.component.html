@@ -45,7 +45,7 @@
         <section class="col-lg-9 col-12">
             <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
                 <header class="mb-2"></header>
-                <!-- Search Bar -->
+             
             </div>
 
             <!-- Popular Types Section -->
@@ -54,8 +54,9 @@
                 <div class="product-types-container">
                     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
                         <div class="col mb-3" *ngFor="let type of types">
-                            <div class="card product-type-card" (click)="onTypeSelected(type.Id)">
-                                <img src="https://localhost:7275/Public/Images/{{ type.Name }}.svg" class="card-img-top" alt="{{ type.Name }}">
+                            <div      class="card product-type-card" (click)="onTypeSelected(type.Id)">
+                                <img  *ngIf="type.Name!='Frozen food'" src="https://localhost:7275/Public/Images/{{ type.Name }}.svg" class="card-img-top" alt="{{ type.Name }}">
+                                <img  *ngIf="type.Name=='Frozen food'"  src="https://localhost:7275/Public/Images/frozen.png" class="card-img-top" alt="{{ type.Name }}">
                                 <div class="card-body text-center">
                                     <h6 class="card-title">{{ type.Name }}</h6>
                                 </div>
