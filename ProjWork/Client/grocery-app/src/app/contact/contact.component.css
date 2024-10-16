@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: column;
     padding: 3.5rem;
-    background: url('../../assets/images/bfc.png');
+    background: url('../../assets/images/contBg.png');
     background-size: cover; /* Optional: Ensure the image covers the background */
     background-position: center; 
 }
