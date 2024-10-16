@@ -14,7 +14,7 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 - Feedback System: EmailJS for contact and feedback
 - Extra Packages: @auth0/angular-jwt , xng-breadcrumb@9.0
 - API Communication: RESTful API with JSON data format
-- Build Tools: Visual Studio 2022, Visual Studio Code, Postman, Swagger UI, Microsoft SQL Management Studio, Stripe Payment API, Angular CLI, .NET CLI
+- Build Tools: Visual Studio 2022, Visual Studio Code,Figma Postman, Swagger UI, Microsoft SQL Management Studio, Stripe Payment API, Angular CLI, .NET CLI, Git
 
 ## Features
 
