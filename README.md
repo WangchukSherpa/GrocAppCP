@@ -126,10 +126,7 @@ We welcome contributions from the community! Please follow these steps to contri
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a pull request.
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Contact
 
-If you have any questions or feedback, feel free to reach out to us at support@goquickapp.com.
+If you have any questions or feedback, feel free to reach out to us at    j.w.sherpa207@gmail.com && tathagatbhanjdev@gmail.com
