@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckoutService } from './checkout.service';
 import { Checkout } from '../models/checkout.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-checkout',
@@ -23,7 +24,8 @@ export class CheckoutComponent implements OnInit {
     private basketService: BasketService,
     private fb: FormBuilder,
     private checkoutService: CheckoutService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -116,15 +118,34 @@ export class CheckoutComponent implements OnInit {
       },this.useStoredAddress).subscribe(response => {
         console.log('Order placed successfully', response);
       
-        this.savedAddress = response.ShipToAddress; // Store the saved address details
         this.orderPlaced = true; // Set order placed flag
     
-        setTimeout(() => {
-          this.router.navigate(['/payment']); // Redirect to payment page after delay
-        }, 3000); // Redirect after 3 seconds, adjust as needed
+  
+          this.router.navigate(['/payment']); 
       }, error => {
         console.error('Error placing order', error);
       });
     }
+  }
+  onUseSavedAddress() {
+    const headers = this.createAuthorizationHeader();
+    const email = sessionStorage.getItem('email');
+    this.http.get(`https://localhost:7275/api/Order/address/${email}`,{headers}).subscribe(
+      (address: any) => {
+        this.savedAddress = address; // Assuming the API returns the address object
+        this.useStoredAddress = true; // Show the saved address
+      },
+      (error) => {
+        console.error('Error fetching saved address:', error);
+      }
+    );
+  }
+  private createAuthorizationHeader(): HttpHeaders {
+    const token = sessionStorage.getItem('token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers = headers.append('Authorization', `Bearer ${token}`);
+    }
+    return headers;
   }
 }

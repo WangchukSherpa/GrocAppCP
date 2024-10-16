@@ -10,7 +10,7 @@
           <!-- Saved Address Option -->
           <div class="form-group mb-3">
             <h5>Select Delivery Address:</h5>
-            <button (click)="useStoredAddress = true; checkoutForm.reset();" class="btn btn-outline-primary mb-2">Use Saved Address</button>
+            <button   (click)="useStoredAddress=true" (click)="onUseSavedAddress()" class="btn btn-outline-primary mb-2">Use Saved Address</button>
           </div>
 
           <!-- Delivery Method for Saved Address -->
@@ -26,6 +26,16 @@
                 <option value="5">DV4 - Delivery within 12 hours (₹50.00)</option>
               </select>
             </div>
+               <!-- Display Saved Address -->
+          <div *ngIf="useStoredAddress" class="mb-3">
+            <h5>Your Saved Address:</h5>
+            <p><strong>Flat/House No:</strong> {{ savedAddress.FlatHouseNo }}</p>
+            <p><strong>Area/Sector:</strong> {{ savedAddress.AreaSector }}</p>
+            <p><strong>Landmark:</strong> {{ savedAddress.LandMark }}</p>
+            <p><strong>Pincode:</strong> {{ savedAddress.Pincode }}</p>
+            <p><strong>City:</strong> {{ savedAddress.City }}</p>
+            <p><strong>State:</strong> {{ savedAddress.State }}</p>
+          </div>
             <div class="d-grid gap-2">
               <button (click)="onProceedToPay()" class="btn btn-success btn-lg">Proceed to Pay</button>
             </div>
