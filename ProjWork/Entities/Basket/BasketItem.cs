@@ -1,11 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ProjWork.Entities.Basket
 {
     public class BasketItem
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string ProductName { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 

@@ -2,20 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using ProjWork.Data;
 using ProjWork.Entities.Basket;
-using ProjWork.Model;
 using ProjWork.Repo.Interface;
 using System.Text.Json;
-
 namespace ProjWork.Repo
 {
     public class BasketRepo : IBasketRepo
     {
         private readonly ProductDbContext _context;
-        public BasketRepo(ProductDbContext context) {
-        _context = context;
+        public BasketRepo(ProductDbContext context)
+        {
+            _context = context;
         }
 
-     
+
 
         public async Task<bool> DeleteItemBasketAsync(int id)
         {
@@ -37,53 +36,90 @@ namespace ProjWork.Repo
 
         public async Task<CustomersBasket> GetBasketAsync(string basketId)
         {
-         return await _context.CustomersBaskets
-                .Include(b=>b.Items)
-                .FirstOrDefaultAsync(b => b.Id == basketId);
+            return await _context.CustomersBaskets
+                   .Include(b => b.Items)
+                   .FirstOrDefaultAsync(b => b.Id == basketId);
         }
 
+        //public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
+        //{
+        //    // Fetch the existing basket from the database
+        //    var existingBasket = await _context.CustomersBaskets
+        //        .Include(b => b.Items) // Include the related items
+        //        .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+
+        //    if (existingBasket == null)
+        //    {
+        //        // If the basket doesn't exist, create a new one
+        //        _context.CustomersBaskets.Add(customersBasket);
+        //    }
+        //    else
+        //    {
+
+        //        foreach (var newItem in customersBasket.Items)
+        //        {
+        //            var existingItem = existingBasket.Items
+        //                .SingleOrDefault(i => i.ProductName == newItem.ProductName);
+
+        //            if (existingItem == null)
+        //            {
+
+        //                existingBasket.Items.Add(newItem);
+        //            }
+        //            else
+        //            {
+
+        //                existingItem.Quantity += newItem.Quantity;
+        //                existingItem.Price = newItem.Price;
+        //                existingItem.PictureUrl = newItem.PictureUrl;
+        //                existingItem.Brand = newItem.Brand;
+        //                existingItem.Type = newItem.Type;
+        //            }
+        //        }
+        //    }
+
+        //    // Save changes to the database
+        //    await _context.SaveChangesAsync();
+
+        //    // Return the updated basket
+        //    return await GetBasketAsync(customersBasket.Id);
+        //}
         public async Task<CustomersBasket> UpdateBasketAsync(CustomersBasket customersBasket)
         {
-            const int maxRetries = 5;
-            int currentAttempt = 0;
-
-            while (currentAttempt < maxRetries)
+            try
             {
-                try
-                {
-                    var existingBasket = await _context.CustomersBaskets
-                        .Include(b => b.Items)
-                        .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+                // Fetch the existing basket from the database
+                Console.WriteLine($"Updating basket for user: {customersBasket.Id}");
 
-                    if (existingBasket == null)
+                // Fetch the existing basket from the database
+                var existingBasket = await _context.CustomersBaskets
+                    .Include(b => b.Items)
+                    .SingleOrDefaultAsync(b => b.Id == customersBasket.Id);
+
+                if (existingBasket == null)
+                {
+                    Console.WriteLine($"Basket not found. Creating new basket for user: {customersBasket.Id}");
+                    // If the basket doesn't exist, create a new one
+                    _context.CustomersBaskets.Add(customersBasket);
+                    existingBasket = customersBasket;
+                }
+                else
+                {
+                    if (customersBasket.Items != null)
                     {
-                        _context.CustomersBaskets.Add(customersBasket);
-                    }
-                    else
-                    {
-                        // Process each new item
                         foreach (var newItem in customersBasket.Items)
                         {
-                            // Try to find matching item
                             var existingItem = existingBasket.Items
                                 .SingleOrDefault(i => i.ProductName == newItem.ProductName);
 
                             if (existingItem == null)
                             {
-                                // If no matching item found, add new item
-                                existingBasket.Items.Add(new BasketItem
-                                {
-                                    ProductName = newItem.ProductName,
-                                    Quantity = newItem.Quantity,
-                                    Price = newItem.Price,
-                                    PictureUrl = newItem.PictureUrl,
-                                    Brand = newItem.Brand,
-                                    Type = newItem.Type
-                                });
+
+                                existingBasket.Items.Add(newItem);
                             }
                             else
                             {
-                                // If matching item found, update its properties
+
                                 existingItem.Quantity += newItem.Quantity;
                                 existingItem.Price = newItem.Price;
                                 existingItem.PictureUrl = newItem.PictureUrl;
@@ -91,30 +127,25 @@ namespace ProjWork.Repo
                                 existingItem.Type = newItem.Type;
                             }
                         }
-
-                        existingBasket.LastModified = DateTime.UtcNow;
                     }
-
-                    await _context.SaveChangesAsync();
-                    return await GetBasketAsync(customersBasket.Id);
+                    existingBasket.DeliveryMethodId = customersBasket.DeliveryMethodId;
+                  
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    currentAttempt++;
 
-                    if (currentAttempt >= maxRetries)
-                    {
-                        throw new Exception("Failed to update basket after multiple attempts due to concurrent modifications. Please try again.");
-                    }
+                // Save changes to the database
+                await _context.SaveChangesAsync();
 
-                    _context.ChangeTracker.Clear();
-                    await Task.Delay(100 * currentAttempt);
-                }
+                // Return the updated basket
+                return await GetBasketAsync(customersBasket.Id);
             }
-
-            throw new Exception("Unexpected error in basket update.");
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error updating basket: {ex.Message}");
+                // You might want to throw a custom exception here
+                throw new Exception("Failed to update basket", ex);
+            }
         }
-        
 
 
     }

@@ -1,32 +1,69 @@
-<div class="d-flex flex-row align-items-center justify-content-between px-4 mb-3 
-    bg-white border-bottom fixed-top shadow-sm">
-    <img src="assets/images/logo.png" alt="logo" class="logo" style="max-height: 100px;"   routerLink="/"  >
-    
-    <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
-        <a class="p-2" 
-        routerLink="" 
-        routerLinkActive="active" 
-        [routerLinkActiveOptions]="{exact:true}" 
-        style="cursor: pointer;">Home</a>
-     
-     <a class="p-2" 
-        [routerLink]="['/shop']" 
-        routerLinkActive="active" 
-        style="cursor: pointer;">Shop</a>
-     
-     <a class="p-2" 
-        [routerLink]="['/contact']" 
-        routerLinkActive="active" 
-        style="cursor: pointer;">Contact</a>
-     
-    </nav>
-
-    <div class="d-flex align-items-center">
-        <a class="position-relative m-3">
-            <i   routerLink="/basket"  class="fa fa-shopping-cart fa-2x text-dark"></i>
-            <div class="cart-no">5</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top shadow-sm">
+    <div class="container-fluid px-4">
+        <!-- Logo -->
+        <a class="navbar-brand" routerLink="/">
+            <img src="assets/images/logo.svg" alt="logo" class="logo" style="max-height: 80px;">
         </a>
-        <a class="btn btn-outline-secondary m-2" routerLink="/login">Login</a>
-        <a class="btn btn-outline-primary m-3" routerLink="/signup">Sign up</a>
-    </div>
+
+        <!-- Navbar toggle for mobile view -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase" style="font-size: larger;">
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       routerLink="" 
+                       routerLinkActive="active" 
+                       [routerLinkActiveOptions]="{exact:true}" 
+                       style="cursor: pointer;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       [routerLink]="['/shop']" 
+                       routerLinkActive="active" 
+                       style="cursor: pointer;">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                       [routerLink]="['/contact']" 
+                       routerLinkActive="active" 
+                       style="cursor: pointer;">Contact</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center">
+                <!-- Shopping Cart -->
+                <a href="/basket" class="position-relative m-3">
+                    <i class="fa fa-shopping-cart fa-2x text-dark"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ getCartItemCount() }}
+                        <span class="visually-hidden">items in cart</span>
+                    </span>
+                </a>
+
+                <!-- Display Welcome Message and Conditional Login/Logout Buttons -->
+                <span class="navbar-text m-3" *ngIf="isLoggedIn()" style="color: green;">
+                    Welcome {{ getUserFirstName() }}!
+                </span>
+                
+                <div class="nav-buttons">
+  <a class="btn btn-custom btn-signup" routerLink="/signup" *ngIf="!isLoggedIn()">
+    <i class="fas fa-user-plus"></i> Sign up
+  </a>
+  <a class="btn btn-custom btn-logout" (click)="logout()" *ngIf="isLoggedIn()">
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </a>
+  <a class="btn btn-custom btn-orders" routerLink="/my-orders" *ngIf="isLoggedIn()">
+    <i class="fas fa-list-alt"></i> My Orders
+  </a>
+  <a class="btn btn-custom btn-login" routerLink="/login" *ngIf="!isLoggedIn()">
+    <i class="fas fa-sign-in-alt"></i> Login
+  </a>
 </div>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,21 +1,23 @@
-﻿namespace ProjWork.Entities.Order
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ProjWork.Entities.Order
 {
-    public class ProductItemOrdered: BaseEntities
+    [Owned]
+    public class ProductItemOrdered
     {
         public ProductItemOrdered()
         {
         }
 
-        public ProductItemOrdered(int productId, string productName, string pictureUrl)
+        public ProductItemOrdered(int productItemId, string productName, string pictureUrl)
         {
-            ProductId = productId;
+            ProductItemId = productItemId;
             ProductName = productName;
             PictureUrl = pictureUrl;
         }
 
-        public int ProductId { get; set; }
+        public int ProductItemId { get; set; }
         public string ProductName { get; set; }
         public string PictureUrl { get; set; }
-
     }
 }

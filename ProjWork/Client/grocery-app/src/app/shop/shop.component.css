@@ -1,0 +1,18 @@
+.product-types-container {
+  display: flex; /* Flexbox for proper alignment */
+  flex-direction: column; /* Align items vertically */
+}
+
+.product-types-container .row {
+  margin-bottom: 20px; /* Adjust the spacing as needed */
+}
+
+/* Ensure products start without gaps */
+.row.justify-content-center {
+  margin-top: 20px; /* Adjust as necessary */
+}
+
+/* Make sure the card components don't have any unintended margins */
+.card {
+  margin: 0; /* Remove default margins */
+}

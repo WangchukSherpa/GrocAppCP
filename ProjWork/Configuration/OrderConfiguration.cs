@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 using ProjWork.Entities.Order;
 
 namespace ProjWork.Configuration
@@ -12,12 +12,15 @@ namespace ProjWork.Configuration
             {
                 a.WithOwner();
             });
+
             builder.Property(s => s.Status)
                 .HasConversion(
-                o => o.ToString(),
-                o => (OrderStatus)Enum.Parse(typeof(OrderStatus),o)
+                    o => o.ToString(),
+                    o => (OrderStatus)Enum.Parse(typeof(OrderStatus), o)
                 );
-            builder.HasMany(o=>o.OrderedItems).WithOne().OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(o => o.OrderedItems).WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

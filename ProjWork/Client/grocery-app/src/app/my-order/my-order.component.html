@@ -1,0 +1,72 @@
+<div class="container my-5">
+    <h2 class="text-center mb-4" style="color: green;">My Orders</h2>
+  
+    <div *ngIf="orders.length === 0" class="alert alert-info text-center" role="alert">
+      <i class="fa fa-info-circle me-2"></i> You have no orders yet.
+    </div>
+  
+    <div *ngIf="orders.length > 0">
+      <!-- Loop through each order -->
+      <div *ngFor="let order of orders" class="card mb-4 shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Order Number #{{ order.Id }}</h5>
+          <span class="badge bg-primary">{{ order.Status }}</span>
+        </div>
+        <div class="card-body">
+          <!-- Order Info -->
+          <div class="row">
+            <div class="col-md-6">
+              <h6><i class="fa fa-calendar-alt me-2"></i>Order Date:</h6>
+              <p>{{ order.OrderDate | date: 'medium' }}</p>
+            </div>
+            <div class="col-md-6">
+              <h6><i class="fa fa-shipping-fast me-2"></i>Delivery Method:</h6>
+              <p>{{ order.DeliveryMethod }} (₹{{ order.ShippingPrice }})</p>
+            </div>
+          </div>
+  
+          <!-- Shipping Address -->
+          <div class="mt-3">
+            <h6><i class="fa fa-map-marker-alt me-2"></i>Shipping Address:</h6>
+            <p>{{ order.ShipToAddress.FlatHouseNo }}, {{ order.ShipToAddress.AreaSector }}, {{ order.ShipToAddress.City }}, {{ order.ShipToAddress.State }} - {{ order.ShipToAddress.Pincode }}</p>
+          </div>
+  
+          <!-- Ordered Items Table -->
+          <div class="mt-3">
+            <h6><i class="fa fa-box me-2"></i>Ordered Items:</h6>
+            <table class="table table-bordered table-hover mt-2">
+              <thead class="table-light">
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of order.OrderedItems">
+                  <td>
+                    <img [src]="item.PictureUrl" alt="{{ item.ProductName }}" class="img-fluid rounded me-2" style="max-width: 50px;">
+                    {{ item.ProductName }}
+                  </td>
+                  <td>{{ item.Quantity }}</td>
+                  <td>₹{{ item.Price }}</td>
+                  <td>₹{{ item.Quantity * item.Price }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <!-- Order Summary -->
+          <div class="d-flex justify-content-end mt-4">
+            <div class="text-end">
+              <h6>Subtotal: ₹{{ order.SubTotal }}</h6>
+              <h6>Shipping: ₹{{ order.ShippingPrice }}</h6>
+              <h4>Total: ₹{{ order.Total }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

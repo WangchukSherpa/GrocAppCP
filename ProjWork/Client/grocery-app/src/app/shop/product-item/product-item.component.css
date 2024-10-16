@@ -1,35 +1,43 @@
-.animated-card {
-    transition: transform 0.3s, box-shadow 0.3s;
+.view-icon {
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  border: 1px solid #fff; /* White border for better visibility */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+}
+
+.view-icon:hover {
+  background-color: rgba(255, 255, 255, 1); /* Full opacity on hover */
+  transform: scale(1.1); /* Slightly larger on hover */
+}
+
+.add-to-basket-icon {
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: none; /* Remove default border */
+  padding: 10px; /* Padding for a better click area */
+  transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+}
+
+.add-to-basket-icon:hover {
+  background-color: #4CAF50; /* Darker green on hover */
+  transform: scale(1.1); /* Slightly larger on hover */
+}
+
+.card {
+  margin: 10px; /* Space between cards */
+  transition: transform 0.2s; /* Scale effect on hover */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Slightly enlarge the card on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+      max-width: 100%; /* Full width on smaller screens */
   }
-  
-  .animated-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .animated-card .card-img-top {
-    transition: transform 0.3s;
-  }
-  
-  .animated-card:hover .card-img-top {
-    transform: scale(1.1);
-  }
-  
-  .animated-card .btn-group button {
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .animated-card .btn-group button:hover {
-    background-color: #f8f9fa;
-    color: #007bff;
-  }
-  .animated-card .btn-group button {
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  }
-  
-  .animated-card .btn-group button:hover {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
-  
+}
