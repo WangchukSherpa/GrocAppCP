@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjWork.Dto;
 using ProjWork.Entities.Basket;
 using ProjWork.Entities.Order;
 using ProjWork.Repo.Interface;
@@ -34,15 +35,21 @@ namespace ProjWork.Controllers
      
 
             await _basketRepo.UpdateBasketAsync(basket);
+            // Call payment service to create or update the payment
+            var paymentResult = await _paymentService.CreateOrUpdatePayment(basketId);
 
-            return await _paymentService.CreateOrUpdatePayment(basketId);
+            if (paymentResult == null)
+            {
+                return BadRequest("Payment failed");
+            }
+
+            // Clear the basket after successful payment
+            basket.Items.Clear();  // Clear all items from the basket
+            await _basketRepo.UpdateBasketAsync(basket);  // Save the empty basket to the database
+
+            return Ok(basket);  // Return the cleared basket
         }
     }
 
-    public class DeliveryMethodUpdateDto
-    {
-        public int DeliveryMethodId { get; set; }
-        public DeliveryMethod DeliveryMethod { get; set; }
-     
-}
+
 }
