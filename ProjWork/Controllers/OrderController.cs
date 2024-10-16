@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjWork.Dto;
 using ProjWork.Entities.Order;
 using ProjWork.Extensions;
+using ProjWork.Repo.Interface;
 using ProjWork.Services;
 using System.Security.Claims;
 
@@ -17,23 +18,16 @@ namespace ProjWork.Controllers
     {
         private readonly IOrderServices _orderServices;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepo;
 
-        public OrderController(IOrderServices orderServices,IMapper mapper)
+        public OrderController(IOrderServices orderServices,IMapper mapper, IUserRepository userRepo)
         {
             _orderServices = orderServices;
             _mapper = mapper;
+            _userRepo = userRepo;
         }
-        /* [HttpPost]
-         public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
-         {
-             var email = HttpContext.User.RetriveEmailFromPrinciple();
-             var address = _mapper.Map<AddressDto, Address>(orderDto.shiptoAddress);
-             var order=await _orderServices.CreateOrderAsync(email, orderDto.DeliveryMethodId,orderDto.BasketId,address);
-             if (order == null) {
-                 return BadRequest("Problem creating order");
-             }
-             return  Ok(order);
-         }*/
+      
+        
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto, [FromQuery] bool useStoredAddress = false)
         {
@@ -107,6 +101,10 @@ namespace ProjWork.Controllers
             }
 
             return Ok(_mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders));
+        }
+        [HttpGet("address/{email}")]
+        public async Task<ActionResult<Address>> GetAddress( string email) {
+            return await _userRepo.GetUserStoredAddressAsync(email);
         }
 
     }
