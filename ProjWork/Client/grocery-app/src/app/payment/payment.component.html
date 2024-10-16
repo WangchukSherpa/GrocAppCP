@@ -32,11 +32,11 @@
       <tbody>
         <tr>
           <td><strong>Delivery Method:</strong></td>
-          <td>{{order?.DeliveryMethod}}</td>
+          <td>{{order.DeliveryMethod.Name}}</td>
         </tr>
         <tr>
           <td><strong>Shipping Price:</strong></td>
-          <td>{{order?.ShippingPrice | currency:'INR'}}</td>
+          <td>{{order.DeliveryMethod.Price | currency:'INR'}}</td>
         </tr>
         <tr>
           <td><strong>Order Total:</strong></td>

@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnInit {
   useStoredAddress: boolean = false; // New variable to manage address selection
   savedAddress: any;
   orderPlaced = false;
+  selectedMethod:number ;
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
@@ -37,11 +38,13 @@ export class CheckoutComponent implements OnInit {
       DeliveryMethodId: [1, Validators.required] // Default to Free delivery
     });
 
-    // Listen for changes to DeliveryMethodId
-    this.checkoutForm.get('DeliveryMethodId')?.valueChanges.subscribe(value => {
-      this.updateDeliveryCharge(value);
-    });
+ 
   }
+  onDeliveryMethodChange(event: Event): void {
+    this.selectedMethod = +(event.target as HTMLSelectElement).value; // Ensure it's being set correctly
+    this.updateDeliveryCharge(this.selectedMethod); // Update delivery charge based on the selected method
+    console.log('Delivery Method Selected:', this.selectedMethod); // Debugging log
+}
 
   updateDeliveryCharge(selectedMethod: number): void {
     if(selectedMethod === 1) this.deliveryCharge = 0;
@@ -104,17 +107,18 @@ export class CheckoutComponent implements OnInit {
   onProceedToPay() {
     const email = sessionStorage.getItem('email'); 
     if (this.useStoredAddress) {
+       console.log(this.selectedMethod);
       // Call your service to proceed to payment using saved address
       this.checkoutService.placeOrder({
         BasketId: email,
-        DeliveryMethodId: this.checkoutForm.value.DeliveryMethodId || 1, // Default to the first method if not set
+        DeliveryMethodId:  this.selectedMethod , // Default to the first method if not set
         shiptoAddress: null
       },this.useStoredAddress).subscribe(response => {
         console.log('Order placed successfully', response);
       
         this.savedAddress = response.ShipToAddress; // Store the saved address details
         this.orderPlaced = true; // Set order placed flag
-        // Optional: You can set a timeout before redirecting to the payment page
+    
         setTimeout(() => {
           this.router.navigate(['/payment']); // Redirect to payment page after delay
         }, 3000); // Redirect after 3 seconds, adjust as needed
