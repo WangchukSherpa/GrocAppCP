@@ -1,56 +1,165 @@
-/* SVG Styling */
-.svg-container {
-    margin-bottom: 20px; /* Overall container margin */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-
-.icon-wrapper {
-    text-align: center;
-    margin-bottom: 0; /* No bottom margin to prevent gaps between SVGs */
-    padding-bottom: 0; /* Ensure no padding between SVGs */
-}
-
-.svg-icon {
+.contact {
+    position: relative;
+    min-height: 100vh;
     width: 100%;
-    height: 100vh; /* Full viewport height */
-    object-fit: contain;
-}
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-/* Remove margin only between first and second SVG */
-.svg-container .row:first-child .icon-wrapper {
-    margin-bottom: 0 !important; /* Force no margin after first image */
 }
-
-.icon-wrapper p {
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 5px; /* Reduced space between image and text */
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 10px;
+.contact .content{
+    max-width: 800px;
+    text-align: center;
 }
-
-/* Get In Touch Box Styling */
-.get-in-touch-box {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    border: 1px solid #e0e0e0;
+.contact .content h2{
+    font-size: 35px;
+    font-weight: 500;
+    color: #05A845;
 }
+.contact .content p{
 
-.contact-info h5 {
-    font-weight: 600;
+    font-weight: 300;
+    color:  #545454;
+}
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    
+}
+.container .contactInfo{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: url('../../assets/images/bfc.png');
+    background-size: cover; /* Optional: Ensure the image covers the background */
+    background-position: center; 
+}
+.container .contactInfo .box{
+    position: relative;
+    padding: 20px 0;
+    display: flex;
+}
+.container .contactInfo .box .icon{
+    min-width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: rgb(174, 236, 168);
+}
+.container .contactInfo .box .text{
+display: flex;
+margin-left: 20px;
+font-size: 16px;
+flex-direction: column;
+font-weight: 300;
+color:  rgb(174, 236, 168);
+}
+.container .contactInfo .box .text h3{
+    font-weight: 500;
+    color: #fff;
+}
+.contactForm{
+    width: 40%;
+    padding: 40px;
+    background:#fff ;
+}
+.contactForm h2{
+    font-size: 30px;
+    color: #333;
+    font-weight: 500;
+}
+.contactForm .inputBox{
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+.contactForm .inputBox input,
+.contactForm .inputBox textarea{
+    width: 100%;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    resize: none;
+}
+.contactForm .inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: 0.5s;
+    color: #666;
+}
+.contactForm .input input:focus ~span,
+.contactForm .input input:valid ~span,
+.contactForm .input textarea:focus ~span,
+.contactForm .input textarea:valid ~span
+{
+ color:#e91e63;
+ font-size:12px;
+ transform: translateY(-20px);
+}
+.contactForm .inputBox[type="submit"]{
+    width: 100px;
+    background:#00bcd4 ;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+}
+.btn {
+    text-align: center;
     margin-top: 20px;
 }
 
-.social-icons a {
-    margin-right: 15px;
-    font-size: 20px;
-    color: #333;
+.btn button {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.social-icons a:hover {
-    color: #007bff;
+.btn button:hover {
+    background-color: #019aa1;
+    transform: translateY(-2px);
+}
+
+.btn button:active {
+    background-color: #008b95;
+    transform: translateY(1px);
+}
+
+@media (max-width:991px) {
+    .contact{
+        padding: 50px;
+    }
+    .container{
+        flex-direction: column;
+    }
+    .container .contactInfo{
+        margin-bottom: 40px;
+    }
 }

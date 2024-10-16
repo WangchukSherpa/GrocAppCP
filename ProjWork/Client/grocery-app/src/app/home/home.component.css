@@ -1,35 +1,37 @@
 .position-relative {
   position: relative; 
 }
+
 .shop-now-btn {
+  cursor: pointer;
   margin-top: 2rem;
-  display: inline-block; /* Make it behave like a button */
-  padding: 10px 20px; /* Adjust padding for size */
-  font-size: 1rem; /* Font size */
-  color: white; /* Text color */
-  background-color: #28a745; /* Green background */
-  border: none; /* No border */
-  border-radius: 25px; /* Rounded corners */
-  text-align: center; /* Center align text */
-  text-decoration: none; /* Remove underline from link */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 25px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .shop-now-btn:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
 }
 
 .overlay-text {
   position: absolute;
   top: 20%; 
-  right:10%;
+  right: 10%;
   color: black;
   text-align: left;
-  padding: 10px; /* Padding around the text */
-  width: 80%; /* Adjust width as needed */
+  padding: 10px;
+  width: 80%;
 }
 
-.delivery-info span{
+.delivery-info span {
   font-size: small;
   color: #28a745;
   margin-right: 2rem;
@@ -38,45 +40,41 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .overlay-text {
-      top: 15%; /* Adjust positioning for smaller screens */
-      right: 5%; /* Adjust right margin for smaller screens */
-      font-size: 1rem; /* Adjust font size for better readability */
-      width: 90%; /* Increase width for smaller devices */
+    top: 15%;
+    right: 5%;
+    font-size: 1rem;
+    width: 90%;
   }
 
   .delivery-info span {
-      font-size: small; /* Adjust font size for medium screens */
-      margin-right: 1rem; /* Less margin for smaller screens */
+    font-size: small;
+    margin-right: 1rem;
+  }
+
+  /* Adjusting button size for medium screens */
+  .shop-now-btn {
+    padding: 8px 18px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 576px) {
   .overlay-text {
-      top: 10%; /* Further adjust positioning for mobile */
-      right: 3%; /* Further adjust right margin for mobile */
-      font-size:xxx-small; /* Smaller font size for mobile */
-      padding: 5px; /* Less padding for mobile */
+    top: 10%; 
+    right: 3%; 
+    font-size: xxx-small;
+    padding: 5px;
   }
 
   .delivery-info span {
-      font-size: small; /* Maintain small font size on mobile */
-      margin-right: 0.2rem; /* Minimal margin for mobile */
+    font-size: small;
+    margin-right: 0.2rem;
+  }
+
+  /* Adjusting button size for mobile */
+  .shop-now-btn {
+    padding: 6px 16px;  /* Smaller padding for mobile */
+    font-size: 0.8rem;  /* Smaller font size for mobile */
   }
 }
-  
-  /* Targeting home2.svg specifically */
-  .custom-image[src="/public/assets/images/home2.svg"] {
-    max-width: 500px;  /* Custom width */
-    max-height: 300px; /* Custom height */
-    height: auto;      /* Maintain aspect ratio */
-    margin: 0 auto;    /* Center-align image */
-  }
-  
-  @media (min-width: 992px) {
-    .custom-image[src="assets/images/home2.svg"] {
-      max-width: 450px;  /* Slightly smaller width for large screens */
-      max-height: 470px; /* Maintain height proportion */
-    }
-    
-  }
-  
+
