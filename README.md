@@ -6,14 +6,15 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 
 ## Tech Stack
 
-- Frontend: Angular 18
+- Frontend: Angular 18 & TypeScript
 - Backend: .NET 8 with C#
 - Database: SQL Server (managed with SQL Server Management Studio)
 - Authentication: JWT-based authentication
 - Payment Integration: Stripe
 - Feedback System: EmailJS for contact and feedback
+- Extra Packages: @auth0/angular-jwt , xng-breadcrumb@9.0
 - API Communication: RESTful API with JSON data format
-- Build Tools: Node.js, Angular CLI, .NET CLI
+- Build Tools: Visual Studio 2022, Visual Studio Code, Postman, Swagger UI, Microsoft SQL Management Studio, Stripe Payment API, Angular CLI, .NET CLI
 
 ## Features
 
@@ -21,7 +22,6 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 
    - JWT-based authentication: Secure login and token management.
    - Registration and Login: New users can register and existing users can log in securely.
-   - Role-based Access Control: Different features for regular users and admins.
 
 2. **Product Management**
 
@@ -49,6 +49,7 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 
    - Products and basket contents are updated in real-time using efficient API calls.
    - Concurrency control for basket updates to avoid conflicts.
+   - Single Page Application
 
 7. **Feedback/Contact Us**
    - Integrated with EmailJS to provide a simple and efficient way for users to send feedback or contact support directly via email.
@@ -76,7 +77,7 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
    dotnet run
    ```
 
-### Frontend (Angular 18)
+### Frontend (Angular v18.0)
 
 1. Install Node.js and Angular CLI if not already installed:
    ```bash
@@ -106,27 +107,15 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 1. Set up a SQL Server database using SQL Server Management Studio.
 2. Update the connection string in the `appsettings.json` file.
 3. Run database migrations (if any) using Entity Framework.
+4. Run the Master_Query.sql file
 
 ### Payment Integration (Stripe)
 
 1. Set up a Stripe account at https://stripe.com/.
 2. Retrieve your Stripe API keys and add them to the backend configuration in `appsettings.json`.
 
-## API Documentation
-
-You can find the full API documentation at `https://localhost:7275/swagger/index.html` (for development).
-
-## Contribution Guidelines
-
-We welcome contributions from the community! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a pull request.
 
 
-## Contact
+## Credits
 
-If you have any questions or feedback, feel free to reach out to us at    j.w.sherpa207@gmail.com && tathagatbhanjdev@gmail.com
+If you have any questions or feedback, feel free to reach our Contributors- j.w.sherpa207@gmail.com ,tathagatbhanjdev@gmail.com and kk@gmail.com
