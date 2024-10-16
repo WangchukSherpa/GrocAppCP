@@ -27,7 +27,7 @@ export class PaymentComponent implements OnInit {
       const headers = this.createAuthorizationHeader();
       this.http.get(`https://localhost:7275/api/Order/byEmail/${this.buyerEmail}`, { headers }).subscribe(
         (data: any) => {
-          this.order = data[0]; // Assuming the first order is the one to pay for
+          this.order = data[0]; // Latest Order======-->first order is the one to pay for
           
           // Extract the delivery method details
           if (this.order && this.order.DeliveryMethod) {

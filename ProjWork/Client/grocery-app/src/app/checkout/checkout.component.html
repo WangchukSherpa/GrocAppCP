@@ -10,7 +10,9 @@
           <!-- Saved Address Option -->
           <div class="form-group mb-3">
             <h5>Select Delivery Address:</h5>
-            <button (click)="useStoredAddress = true; checkoutForm.reset();" class="btn btn-outline-primary mb-2">Use Saved Address</button>
+            <button (click)="useStoredAddress=true" (click)="onUseSavedAddress()" class="btn btn-outline-success mb-2 button-spacing">Use Saved Address</button>
+            <button (click)="useStoredAddress=false" class="btn btn-outline-primary mb-2">Add New Address</button>
+            
           </div>
 
           <!-- Delivery Method for Saved Address -->
@@ -18,7 +20,7 @@
             <h5>Delivery Method:</h5>
             <div class="form-group mb-4">
               <label for="savedDeliveryMethod">Select Delivery Method:</label>
-              <select class="form-control" formControlName="DeliveryMethodId" id="savedDeliveryMethod">
+              <select class="form-control" formControlName="DeliveryMethodId" id="savedDeliveryMethod"   (change)="onDeliveryMethodChange($event)"   >
                 <option value="1">Free - Delivery within a week (₹0.00)</option>
                 <option value="2">DV1 - Delivery within 4 days (₹15.00)</option>
                 <option value="3">DV2 - Delivery within 2 days (₹30.00)</option>
@@ -26,6 +28,16 @@
                 <option value="5">DV4 - Delivery within 12 hours (₹50.00)</option>
               </select>
             </div>
+               <!-- Display Saved Address -->
+          <div *ngIf="useStoredAddress" class="mb-3">
+            <h5>Your Saved Address:</h5>
+            <p><strong>Flat/House No:</strong> {{ savedAddress.FlatHouseNo }}</p>
+            <p><strong>Area/Sector:</strong> {{ savedAddress.AreaSector }}</p>
+            <p><strong>Landmark:</strong> {{ savedAddress.LandMark }}</p>
+            <p><strong>Pincode:</strong> {{ savedAddress.Pincode }}</p>
+            <p><strong>City:</strong> {{ savedAddress.City }}</p>
+            <p><strong>State:</strong> {{ savedAddress.State }}</p>
+          </div>
             <div class="d-grid gap-2">
               <button (click)="onProceedToPay()" class="btn btn-success btn-lg">Proceed to Pay</button>
             </div>
@@ -38,7 +50,7 @@
             <div class="form-group mb-3">
               <label for="FlatHouseNo">Flat/House No</label>
               <input type="text" class="form-control" formControlName="FlatHouseNo" placeholder="Enter Flat/House No" />
-              <div *ngIf="checkoutForm.get('FlatHouseNo')?.invalid && checkoutForm.get('FlatHouseNo')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('FlatHouseNo')?.invalid && checkoutForm.get('FlatHouseNo')?.touched" class="text-danger">
                 Flat/House No is required
               </div>
             </div>
@@ -46,7 +58,7 @@
             <div class="form-group mb-3">
               <label for="AreaSector">Area/Sector</label>
               <input type="text" class="form-control" formControlName="AreaSector" placeholder="Enter Area/Sector" />
-              <div *ngIf="checkoutForm.get('AreaSector')?.invalid && checkoutForm.get('AreaSector')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('AreaSector')?.invalid && checkoutForm.get('AreaSector')?.touched" class="text-danger">
                 Area/Sector is required
               </div>
             </div>
@@ -54,7 +66,7 @@
             <div class="form-group mb-3">
               <label for="LandMark">Landmark</label>
               <input type="text" class="form-control" formControlName="LandMark" placeholder="Enter Landmark" />
-              <div *ngIf="checkoutForm.get('LandMark')?.invalid && checkoutForm.get('LandMark')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('LandMark')?.invalid && checkoutForm.get('LandMark')?.touched" class="text-danger">
                 Landmark is required
               </div>
             </div>
@@ -62,7 +74,7 @@
             <div class="form-group mb-3">
               <label for="Pincode">Pincode</label>
               <input type="text" class="form-control" formControlName="Pincode" placeholder="Enter Pincode" />
-              <div *ngIf="checkoutForm.get('Pincode')?.invalid && checkoutForm.get('Pincode')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('Pincode')?.invalid && checkoutForm.get('Pincode')?.touched" class="text-danger">
                 Valid Pincode is required (6 digits)
               </div>
             </div>
@@ -70,7 +82,7 @@
             <div class="form-group mb-3">
               <label for="City">City</label>
               <input type="text" class="form-control" formControlName="City" placeholder="Enter City" />
-              <div *ngIf="checkoutForm.get('City')?.invalid && checkoutForm.get('City')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('City')?.invalid && checkoutForm.get('City')?.touched" class="text-danger">
                 City is required
               </div>
             </div>
@@ -78,7 +90,7 @@
             <div class="form-group mb-4">
               <label for="State">State</label>
               <input type="text" class="form-control" formControlName="State" placeholder="Enter State" />
-              <div *ngIf="checkoutForm.get('State')?.invalid && checkoutForm.get('State')?.touched" class="text-success">
+              <div *ngIf="checkoutForm.get('State')?.invalid && checkoutForm.get('State')?.touched" class="text-danger">
                 State is required
               </div>
             </div>
@@ -86,7 +98,7 @@
             <h4 class="mb-3">Delivery Method</h4>
             <div class="form-group mb-4">
               <label for="deliveryMethod">Select Delivery Method:</label>
-              <select class="form-control" formControlName="DeliveryMethodId">
+              <select class="form-control" formControlName="DeliveryMethodId" id="deliveryMethod" (change)="onDeliveryMethodChange($event)">
                 <option value="1">Free - Delivery within a week (₹0.00)</option>
                 <option value="2">DV1 - Delivery within 4 days (₹15.00)</option>
                 <option value="3">DV2 - Delivery within 2 days (₹30.00)</option>
@@ -94,6 +106,7 @@
                 <option value="5">DV4 - Delivery within 12 hours (₹50.00)</option>
               </select>
             </div>
+            
             <!-- Submit Button -->
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-success btn-lg" [disabled]="checkoutForm.invalid">Proceed to Pay</button>
