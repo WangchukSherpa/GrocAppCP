@@ -10,7 +10,9 @@
           <!-- Saved Address Option -->
           <div class="form-group mb-3">
             <h5>Select Delivery Address:</h5>
-            <button   (click)="useStoredAddress=true" (click)="onUseSavedAddress()" class="btn btn-outline-primary mb-2">Use Saved Address</button>
+            <button (click)="useStoredAddress=true" (click)="onUseSavedAddress()" class="btn btn-outline-success mb-2 button-spacing">Use Saved Address</button>
+            <button (click)="useStoredAddress=false" class="btn btn-outline-primary mb-2">Add New Address</button>
+            
           </div>
 
           <!-- Delivery Method for Saved Address -->
