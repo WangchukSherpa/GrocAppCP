@@ -61,7 +61,7 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 1. Install the .NET 8 SDK from the official .NET website.
 2. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/goquick-backend.git
+   git clone git@github.com:WangchukSherpa/GrocAppCP.git
    ```
 3. Navigate to the backend project directory:
    ```bash
