@@ -25,7 +25,6 @@ Welcome to GoQuick, a fullstack grocery application designed to provide a seamle
 
 2. **Product Management**
 
-   - Browse Products: Users can browse through a list of grocery items.
    - Product Details: View detailed information for each product including name, price, description, and image.
 
 3. **Shopping Basket**
