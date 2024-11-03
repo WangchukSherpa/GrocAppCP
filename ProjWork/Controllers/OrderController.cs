@@ -41,7 +41,7 @@ namespace ProjWork.Controllers
 
                 if (storedAddress == null)
                 {
-                    return BadRequest("No stored address found for the user."); // Return an error if no address found
+                    return BadRequest("No stored address found for the user."); 
                 }
 
                 // Assign the fetched address to the address variable
@@ -49,23 +49,23 @@ namespace ProjWork.Controllers
             }
             else
             {
-                // If not using stored address, check if shiptoAddress is provided in the DTO
+        
                 if (orderDto.shiptoAddress == null)
                 {
-                    return BadRequest("Please provide an address."); // Return an error if address not provided
+                    return BadRequest("Please provide an address."); 
                 }
 
-                // Map the provided shiptoAddress from the DTO to the Address entity
+                // Map the provided shiptoAddress from the DTO
                 address = _mapper.Map<AddressDto, Address>(orderDto.shiptoAddress);
             }
 
-            // Proceed with creating the order using the specified email, delivery method, basket ID, and address
+          
             var order = await _orderServices.CreateOrderAsync(email, orderDto.DeliveryMethodId, orderDto.BasketId, address);
 
-            // Check if the order creation was successful
+         
             if (order == null)
             {
-                return BadRequest("Problem creating order"); // Return an error if order creation fails
+                return BadRequest("Problem creating order"); 
             }
 
             // Return the created order

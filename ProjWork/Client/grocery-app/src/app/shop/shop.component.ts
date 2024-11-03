@@ -20,7 +20,7 @@ export class ShopComponent implements OnInit {
   currentPage: number = 1; // To track the current page
   productsPerPage: number = 10; // Number of products per page
   totalProducts: number = 0; // Total number of products returned
-  totalPages: number = 5; // Total number of pages (fixed as per your requirement)
+  totalPages: number = 5; // Total number of pages 
 
   // Filtering and sorting related data
   brandIdSelected: number = 0; // Selected brand ID
@@ -49,7 +49,6 @@ export class ShopComponent implements OnInit {
       (response) => {
         console.log('Products from API:', response);
         this.products = response;
-        this.totalProducts = response.length; // Track total products
       },
       (error) => {
         console.error(error);

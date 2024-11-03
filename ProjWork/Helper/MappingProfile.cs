@@ -13,7 +13,7 @@ namespace ProjWork.Helper
 
             // Map Order to OrderToReturnDto
             CreateMap<Order, OrderToReturnDto>()
-                .ForMember(d => d.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.Name))
+                .ForMember(d => d.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.Name))//d-prop DelMethod ==> source  
                 .ForMember(d => d.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Price))
                 .ForMember(d => d.OrderedItems, o => o.MapFrom(s => s.OrderedItems))  // Map OrderItems to OrderedItems
                 .ForMember(d => d.ShipToAddress, o => o.MapFrom(s => s.ShipToAddress))  // Map ShipToAddress
