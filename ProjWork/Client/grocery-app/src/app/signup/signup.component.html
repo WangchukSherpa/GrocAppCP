@@ -2,98 +2,147 @@
   <div class="card border-success">
     <div class="card-body">
       <h5 class="text-center card-title">Register</h5>
-      <form (ngSubmit)="onSubmit()">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control border border-success" id="firstName" [(ngModel)]="signupData.FirstName" name="firstName" required />
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('FirstName', 'required') || hasError('FirstName', 'minlength') || hasError('FirstName', 'pattern') }" id="firstName" formControlName="FirstName" />
+            <div class="invalid-feedback">
+              <div *ngIf="hasError('FirstName', 'required')">First name is required</div>
+              <div *ngIf="hasError('FirstName', 'minlength')">First name must be at least 2 characters</div>
+              <div *ngIf="hasError('FirstName', 'pattern')">First name must contain only letters</div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control border border-success" id="lastName" [(ngModel)]="signupData.LastName" name="lastName" required />
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('LastName', 'required') || hasError('LastName', 'minlength') || hasError('LastName', 'pattern') }" id="lastName" formControlName="LastName" />
+            <div class="invalid-feedback">
+              <div *ngIf="hasError('LastName', 'required')">Last name is required</div>
+              <div *ngIf="hasError('LastName', 'minlength')">Last name must be at least 2 characters</div>
+              <div *ngIf="hasError('LastName', 'pattern')">Last name must contain only letters</div>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control border border-success" id="email" [(ngModel)]="signupData.Email" name="email" required />
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="phoneNum" class="form-label">Phone Number</label>
-            <input type="text" class="form-control border border-success" id="phoneNum" [(ngModel)]="signupData.PhoneNum" name="phoneNum" required />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control border border-success" id="password" [(ngModel)]="signupData.Password" name="password" required />
-          </div>
-        </div>
-        
-        <h5 class="card-title mt-4">Address Details</h5>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="flatHouseNo" class="form-label">Flat/House No</label>
-            <input type="text" class="form-control border border-success" id="flatHouseNo" [(ngModel)]="signupData.Address.FlatHouseNo" name="flatHouseNo" required />
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" [ngClass]="{ 'is-invalid': hasError('Email', 'required') || hasError('Email', 'email') }" id="email" formControlName="Email" />
+            <div class="invalid-feedback">
+              <div *ngIf="hasError('Email', 'required')">Email is required</div>
+              <div *ngIf="hasError('Email', 'email')">Please enter a valid email address</div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="areaSector" class="form-label">Area/Sector</label>
-            <input type="text" class="form-control border border-success" id="areaSector" [(ngModel)]="signupData.Address.AreaSector" name="areaSector" required />
+            <label for="phoneNum" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('PhoneNum', 'required') || hasError('PhoneNum', 'pattern') }" id="phoneNum" formControlName="PhoneNum" />
+            <div class="invalid-feedback">
+              <div *ngIf="hasError('PhoneNum', 'required')">Phone number is required</div>
+              <div *ngIf="hasError('PhoneNum', 'pattern')">Please enter a valid 10-digit phone number</div>
+            </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="landMark" class="form-label">Landmark</label>
-            <input type="text" class="form-control border border-success" id="landMark" [(ngModel)]="signupData.Address.LandMark" name="landMark" required />
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="pincode" class="form-label">Pincode</label>
-            <input type="number" class="form-control border border-success" id="pincode" [(ngModel)]="signupData.Address.Pincode" name="pincode" required />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control border border-success" id="city" [(ngModel)]="signupData.Address.City" name="city" required />
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="state" class="form-label">State</label>
-            <input type="text" class="form-control border border-success" id="state" [(ngModel)]="signupData.Address.State" name="state" required />
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" [ngClass]="{ 'is-invalid': hasError('Password', 'required') || hasError('Password', 'minlength') || hasError('Password', 'pattern') }" id="password" formControlName="Password" />
+            <div class="invalid-feedback">
+              <div *ngIf="hasError('Password', 'required')">Password is required</div>
+              <div *ngIf="hasError('Password', 'minlength')">Password must be at least 8 characters</div>
+              <div *ngIf="hasError('Password', 'pattern')">Password must contain at least one uppercase letter, one lowercase letter, one number and one special character</div>
+            </div>
           </div>
         </div>
-        
-        <button type="submit" class="btn btn-success w-100">Sign Up</button>
+
+        <h5 class="card-title mt-4">Address Details</h5>
+        <div formGroupName="Address">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="flatHouseNo" class="form-label">Flat/House No</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.FlatHouseNo', 'required') }" id="flatHouseNo" formControlName="FlatHouseNo" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.FlatHouseNo', 'required')">Flat/House No is required</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="areaSector" class="form-label">Area/Sector</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.AreaSector', 'required') || hasError('Address.AreaSector', 'minlength') }" id="areaSector" formControlName="AreaSector" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.AreaSector', 'required')">Area/Sector is required</div>
+                <div *ngIf="hasError('Address.AreaSector', 'minlength')">Area/Sector must be at least 3 characters</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="landMark" class="form-label">Landmark</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.LandMark', 'required') || hasError('Address.LandMark', 'minlength') }" id="landMark" formControlName="LandMark" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.LandMark', 'required')">Landmark is required</div>
+                <div *ngIf="hasError('Address.LandMark', 'minlength')">Landmark must be at least 3 characters</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="pincode" class="form-label">Pincode</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.Pincode', 'required') || hasError('Address.Pincode', 'pattern') }" id="pincode" formControlName="Pincode" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.Pincode', 'required')">Pincode is required</div>
+                <div *ngIf="hasError('Address.Pincode', 'pattern')">Please enter a valid 6-digit pincode</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.City', 'required') || hasError('Address.City', 'pattern') }" id="city" formControlName="City" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.City', 'required')">City is required</div>
+                <div *ngIf="hasError('Address.City', 'pattern')">City must contain only letters</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="state" class="form-label">State</label>
+              <input type="text" class="form-control" [ngClass]="{ 'is-invalid': hasError('Address.State', 'required') || hasError('Address.State', 'pattern') }" id="state" formControlName="State" />
+              <div class="invalid-feedback">
+                <div *ngIf="hasError('Address.State', 'required')">State is required</div>
+                <div *ngIf="hasError('Address.State', 'pattern')">State must contain only letters</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100" [disabled]="signupForm.invalid">Sign Up</button>
       </form>
     </div>
   </div>
 </div>
 
-<!-- Include this CSS to enhance the form styles -->
 <style>
   .card {
-    border-radius: 10px; /* Rounded corners for the card */
+    border-radius: 10px;
   }
   .card-title {
-    font-weight: bold; /* Bold card titles */
-    color: #333; /* Dark color for titles */
+    font-weight: bold;
+    color: #333;
   }
   .form-label {
-    font-weight: 500; /* Medium weight for labels */
+    font-weight: 500;
   }
-  .btn-primary {
-    width: 100%; /* Full-width button */
-    padding: 10px; /* Increased padding for better touch area */
+  .btn-success {
+    width: 100%;
+    padding: 10px;
   }
   .form-control {
-    transition: border-color 0.3s; /* Smooth border color transition */
+    transition: border-color 0.3s;
   }
   .form-control:focus {
-    border-color: #28a745; /* Green border on focus */
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Soft shadow effect */
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  .invalid-feedback {
+    font-size: 80%;
   }
 </style>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">

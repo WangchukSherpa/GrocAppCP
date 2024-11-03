@@ -1,7 +1,11 @@
 # GoQuick - Fullstack Grocery App
 
 ## Overview
+<<<<<<< HEAD
 Hello!!
+=======
+
+>>>>>>> d427280 (Added frontend Validation)
 Welcome to GoQuick, a fullstack grocery application designed to provide a seamless shopping experience. Built using Angular 18 for the frontend and .NET 8 with C# for the backend, GoQuick offers robust features for managing grocery items, orders, payments, and user authentication. This project showcases modern web development practices, combining a powerful frontend with a scalable backend.
 
 ## Tech Stack

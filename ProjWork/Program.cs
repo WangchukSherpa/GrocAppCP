@@ -42,7 +42,7 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
     throw new InvalidOperationException("Connection String not found")));
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;//Keep the property names as it is after serailization.
     options.JsonSerializerOptions.DictionaryKeyPolicy = null;
 
 
@@ -58,13 +58,12 @@ builder.Services.AddAuthentication(options =>
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters
+    options.TokenValidationParameters = new TokenValidationParameters//Set validation parameters for our token 
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ClockSkew = TimeSpan.Zero,
         ValidIssuer = "https://localhost:7275",
         ValidAudience = "https://localhost:7275",
         IssuerSigningKey = new SymmetricSecurityKey(
@@ -73,11 +72,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    options.JsonSerializerOptions.DictionaryKeyPolicy = null;
-});
+
 
 var app = builder.Build();
 

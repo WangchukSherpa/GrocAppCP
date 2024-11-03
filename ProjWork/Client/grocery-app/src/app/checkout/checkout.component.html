@@ -113,21 +113,7 @@
             </div>
           </form>
 
-          <!-- Display Order Confirmation Card -->
-          <div *ngIf="orderPlaced" class="mt-4">
-            <div class="card text-white bg-success mb-3">
-              <div class="card-header">Order Placed Successfully!</div>
-              <div class="card-body">
-                <h5 class="card-title">Order Placed to This Address:</h5>
-                <p class="card-text"><strong>Flat/House No:</strong> {{ savedAddress.FlatHouseNo }}</p>
-                <p class="card-text"><strong>Area/Sector:</strong> {{ savedAddress.AreaSector }}</p>
-                <p class="card-text"><strong>Landmark:</strong> {{ savedAddress.LandMark }}</p>
-                <p class="card-text"><strong>Pincode:</strong> {{ savedAddress.Pincode }}</p>
-                <p class="card-text"><strong>City:</strong> {{ savedAddress.City }}</p>
-                <p class="card-text"><strong>State:</strong> {{ savedAddress.State }}</p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

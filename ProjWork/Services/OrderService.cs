@@ -95,10 +95,10 @@ namespace ProjWork.Services
         {
             // Fetch the order with eager loading for related data
             var order = await _orderRepo.GetOrders()
-                .Include(o => o.DeliveryMethod)   // Include DeliveryMethod
-                .Include(o => o.OrderedItems)       // Include OrderItems
+                .Include(o => o.DeliveryMethod)  
+                .Include(o => o.OrderedItems)       
                     .ThenInclude(i => i.ItemOrdered) // Include the nested ProductItemOrdered
-                .Include(o => o.ShipToAddress)    // Include ShipToAddress
+                .Include(o => o.ShipToAddress)    
                 .FirstOrDefaultAsync(o => o.Id == id && o.BuyerEmail == buyerEmail);
 
             if (order == null)
@@ -114,10 +114,10 @@ namespace ProjWork.Services
             // Fetch all orders for the specified buyer with eager loading
             var orders = _orderRepo.GetOrders()
                 .Where(o => o.BuyerEmail == buyerEmail)
-                .Include(o => o.DeliveryMethod)   // Include DeliveryMethod
-                .Include(o => o.OrderedItems)       // Include OrderItems
+                .Include(o => o.DeliveryMethod)  
+                .Include(o => o.OrderedItems)      
                     .ThenInclude(i => i.ItemOrdered) // Include ProductItemOrdered
-                .Include(o => o.ShipToAddress);   // Include ShipToAddress
+                .Include(o => o.ShipToAddress);  
 
             var orderList = await orders.ToListAsync();
             return orderList.AsReadOnly();
